@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChillBreak - Game Tebak Gambar & Pemecah Suasana Soft Pink</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tone.js for Audio Feedback -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'rose-theme': {
+                            50: '#FFF5F6',
+                            100: '#FDE8EB',
+                            200: '#FBCFD6',
+                            300: '#F6A7B8',
+                            400: '#EE7890',
+                            500: '#E88B97',
+                            600: '#D97683',
+                            700: '#B24556',
+                            800: '#7A2838',
+                            900: '#5B1F2A',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'pop-in': 'popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                        'float': 'float 3s infinite ease-in-out',
+                        'bounce-soft': 'bounceSoft 2s infinite ease-in-out',
+                    },
+                    keyframes: {
+                        popIn: {
+                            '0%': { transform: 'scale(0.94) translateY(10px)', opacity: '0' },
+                            '100%': { transform: 'scale(1) translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        },
+                        bounceSoft: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Modern 3D Flip Card Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Custom Soft Pink Scrollbar */
+        ::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDE8EB;
+            border-radius: 999px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E88B97;
+            border-radius: 999px;
+        }
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-none {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Gambar Emoji Style */
+        .emoji-pic {
+            filter: drop-shadow(0 6px 8px rgba(0,0,0,0.15));
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-[#FFF0F2] via-[#FCE4E8] to-[#F8CBD4] text-[#5B1F2A] font-sans min-h-screen flex flex-col justify-between selection:bg-[#F6A7B8] selection:text-[#5B1F2A]">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-[#F4B2B8]/40 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="switchGame('home')">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#E88B97] to-[#FBCFD6] flex items-center justify-center text-white shadow-md shadow-rose-200 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-shapes text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif text-2xl font-bold tracking-tight text-[#5B1F2A]">ChillBreak</h1>
+                    <p class="text-[11px] text-[#A35261] font-medium">Tebak Gambar & Pemecah Suasana</p>
+                </div>
+            </div>
+
+            <nav class="flex gap-2 bg-[#FFF5F6] p-1.5 rounded-full border border-[#F6A7B8]/40 shadow-inner">
+                <button id="nav-btn-tebak" onclick="switchGame('tebak')" class="px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-images text-[#E88B97]"></i> Tebak Gambar
+                </button>
+                <button id="nav-btn-productivity" onclick="switchGame('productivity')" class="px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-brain text-[#E88B97]"></i> Wawasan Fakta
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full flex flex-col justify-center">
+
+        <!-- ==================== LANDING PAGE ==================== -->
+        <section id="game-home" class="text-center py-6 space-y-8 animate-pop-in">
+            <div class="max-w-2xl mx-auto space-y-4">
+                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#B24556] text-xs font-bold tracking-wide shadow-md border border-[#FBCFD6]">
+                    <i class="fa-solid fa-sparkles text-amber-400"></i> Main Bareng & Santai
+                </span>
+                <h2 class="font-serif text-3xl md:text-5xl font-extrabold text-[#5B1F2A] tracking-tight leading-snug">
+                    Cairkan Suasana dengan <br><span class="italic text-[#B24556]">Tebak Gambar & Wawasan</span>
+                </h2>
+                <p class="text-[#7A2838] font-medium text-sm md:text-base max-w-lg mx-auto">
+                    Pilih permainan di bawah ini untuk mengasah logika imajinasi dan pengetahuan seputar produktivitas!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto pt-2">
+                <!-- Card Game 1: Tebak Gambar -->
+                <div onclick="switchGame('tebak')" class="group bg-white hover:bg-[#FFF5F6] border-2 border-[#F6A7B8]/60 hover:border-[#E88B97] p-7 rounded-3xl cursor-pointer transition-all duration-300 text-left flex flex-col justify-between shadow-xl shadow-rose-100/50 hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-[#FDE8EB] border border-[#FBCFD6] flex items-center justify-center text-[#E88B97] text-2xl group-hover:scale-110 group-hover:rotate-6 transition-all">
+                            <i class="fa-solid fa-images"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-[#B24556] bg-[#FDE8EB] px-2.5 py-1 rounded-md border border-[#FBCFD6]">20 Level Logika</span>
+                            <h3 class="font-serif text-2xl font-bold text-[#5B1F2A] group-hover:text-[#B24556] transition-colors mt-2">Tebak Gambar Rebus</h3>
+                        </div>
+                        <p class="text-[#8C3A49] text-sm leading-relaxed">
+                            Gabungkan petunjuk visual (rebus) untuk menebak <b>1 hingga 3 kata</b>. Tersedia dari level <b>Mudah</b> hingga <b>Sangat Sulit</b>!
+                        </p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between pt-4 border-t border-[#FDE8EB] text-[#E88B97] font-bold text-sm">
+                        <span>Mulai Bermain</span>
+                        <div class="w-8 h-8 rounded-full bg-[#FDE8EB] flex items-center justify-center group-hover:translate-x-1.5 transition-transform">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Game 2: Mitos vs Fakta -->
+                <div onclick="switchGame('productivity')" class="group bg-white hover:bg-[#FFF5F6] border-2 border-[#F6A7B8]/60 hover:border-[#E88B97] p-7 rounded-3xl cursor-pointer transition-all duration-300 text-left flex flex-col justify-between shadow-xl shadow-rose-100/50 hover:-translate-y-1">
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl bg-[#FDE8EB] border border-[#FBCFD6] flex items-center justify-center text-[#E88B97] text-2xl group-hover:scale-110 group-hover:-rotate-6 transition-all">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-[#B24556] bg-[#FDE8EB] px-2.5 py-1 rounded-md border border-[#FBCFD6]">Wawasan & Self-Care</span>
+                            <h3 class="font-serif text-2xl font-bold text-[#5B1F2A] group-hover:text-[#B24556] transition-colors mt-2">Mitos vs Fakta</h3>
+                        </div>
+                        <p class="text-[#8C3A49] text-sm leading-relaxed">
+                            Pilih tema menarik: <b>Produktivitas</b>, <b>Manajemen Waktu</b>, atau <b>Manajemen Energi</b> untuk menguji pengetahuanmu!
+                        </p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between pt-4 border-t border-[#FDE8EB] text-[#E88B97] font-bold text-sm">
+                        <span>Pilih Tema Kuis</span>
+                        <div class="w-8 h-8 rounded-full bg-[#FDE8EB] flex items-center justify-center group-hover:translate-x-1.5 transition-transform">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== GAME 1: TEBAK GAMBAR REBUS ==================== -->
+        <section id="game-tebak" class="hidden space-y-4 animate-pop-in">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-3 bg-white p-4 rounded-3xl border border-[#F6A7B8]/60 shadow-lg shadow-rose-100/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-[#FDE8EB] flex items-center justify-center text-[#E88B97] border border-[#FBCFD6] text-xl">
+                        <i class="fa-solid fa-images"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-[#B24556] font-bold tracking-wider uppercase">Tebak Gambar</span>
+                        <h2 id="tebak-level-title" class="font-serif text-xl font-bold text-[#5B1F2A]">Level 1</h2>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <div class="bg-[#FFF5F6] p-1 rounded-2xl border border-[#FBCFD6] flex gap-1 text-xs">
+                        <button id="mode-btn-ketik" onclick="setTebakMode('ketik')" class="px-3.5 py-1.5 rounded-xl font-bold transition-all bg-[#E88B97] text-white shadow-sm">
+                            <i class="fa-solid fa-pen-keyboard mr-1"></i> Ketik
+                        </button>
+                        <button id="mode-btn-flash" onclick="setTebakMode('flash')" class="px-3.5 py-1.5 rounded-xl font-bold transition-all text-[#A35261] hover:text-[#5B1F2A]">
+                            <i class="fa-solid fa-clone mr-1"></i> Flashcard
+                        </button>
+                    </div>
+                    <button onclick="switchGame('home')" class="text-xs text-[#A35261] hover:text-[#5B1F2A] font-bold bg-[#FFF5F6] px-3 py-2 rounded-xl border border-[#FBCFD6]">
+                        <i class="fa-solid fa-house"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="level-selector-bar" class="flex gap-2 overflow-x-auto py-1 scrollbar-none max-w-full">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- CANVAS TEBAKAN -->
+            <div class="max-w-xl mx-auto w-full">
+                
+                <!-- MODE KETIK -->
+                <div id="tebak-mode-ketik-container" class="bg-white rounded-3xl border-2 border-[#F6A7B8]/80 p-5 md:p-6 shadow-2xl shadow-rose-200/50 space-y-5 relative">
+                    
+                    <div class="flex justify-between items-center text-xs">
+                        <div class="flex gap-2 items-center">
+                            <span class="bg-[#FDE8EB] text-[#B24556] font-extrabold px-3 py-1 rounded-full border border-[#FBCFD6]">
+                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> Soal <span id="tebak-current-num">1</span> / <span id="tebak-total-num">20</span>
+                            </span>
+                            <span id="tebak-difficulty-badge" class="font-bold px-3 py-1 rounded-full border">
+                                Mudah
+                            </span>
+                        </div>
+                        <span class="bg-emerald-50 text-emerald-700 font-bold px-3 py-1 rounded-full border border-emerald-200">
+                            Skor: <span id="tebak-score-val">0</span>
+                        </span>
+                    </div>
+
+                    <!-- Tempat Rebus Kombinasi Gambar -->
+                    <div class="w-full min-h-[220px] rounded-3xl bg-gradient-to-br from-[#FFF5F6] to-[#FDE8EB] border-2 border-[#FBCFD6] p-5 shadow-inner flex flex-col justify-center">
+                        <div id="tebak-rebus-visual" class="flex flex-wrap justify-center items-center gap-2 sm:gap-4 transition-all duration-300">
+                            <!-- JS akan menyuntikkan Visual Rebus di sini -->
+                        </div>
+                    </div>
+
+                    <!-- Input Jawaban -->
+                    <div class="space-y-3 pt-2">
+                        <div class="flex gap-2">
+                            <input type="text" id="tebak-user-input" placeholder="Ketik 1-3 kata jawabanmu..." onkeypress="handleTebakKeyPress(event)" class="w-full px-4 py-3 rounded-2xl bg-[#FFF7F8] border-2 border-[#FBCFD6] text-[#5B1F2A] font-bold text-center text-sm md:text-base focus:outline-none focus:border-[#E88B97] focus:ring-2 focus:ring-[#FBCFD6] placeholder-[#C48894] shadow-inner transition-all uppercase">
+                            
+                            <button onclick="checkTebakAnswer()" class="px-6 py-3 bg-gradient-to-r from-[#E88B97] to-[#D97683] hover:from-[#D97683] hover:to-[#B24556] text-white font-extrabold rounded-2xl shadow-md shadow-rose-200 active:scale-95 transition-all shrink-0">
+                                Cek <i class="fa-solid fa-paper-plane text-xs ml-1"></i>
+                            </button>
+                        </div>
+                        <div id="tebak-feedback-msg" class="hidden p-3 rounded-xl text-center text-xs font-bold transition-all"></div>
+                    </div>
+
+                    <!-- Tombol Navigasi Cepat Kunci / Bantuan -->
+                    <div class="flex justify-between items-center pt-3 border-t border-[#FDE8EB]">
+                        <button onclick="showTebakHint()" class="text-xs font-bold text-[#A35261] bg-[#FFF5F6] hover:bg-[#FDE8EB] px-3.5 py-2 rounded-xl border border-[#FBCFD6] transition-colors">
+                            <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Bantuan Maksud
+                        </button>
+                        <button onclick="showTebakAnswer()" class="text-xs font-bold text-[#A35261] bg-gray-50 hover:bg-gray-100 px-3.5 py-2 rounded-xl border border-gray-200 transition-colors">
+                            <i class="fa-solid fa-key text-amber-500 mr-1"></i> Kunci
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- MODE FLASHCARD -->
+                <div id="tebak-mode-flash-container" class="hidden perspective-1000 w-full min-h-[460px] group cursor-pointer" onclick="flipTebakCard()">
+                    <div id="tebak-card-inner" class="relative w-full h-full min-h-[460px] duration-700 transform-style-3d rounded-3xl border-2 border-[#F6A7B8] shadow-2xl bg-white">
+                        
+                        <!-- Front Card -->
+                        <div class="absolute w-full h-full backface-hidden bg-white p-6 rounded-3xl flex flex-col justify-between items-center text-center">
+                            <div class="w-full flex justify-between items-center text-xs">
+                                <span id="tebak-flash-difficulty" class="bg-[#FDE8EB] text-[#B24556] px-3 py-1 rounded-full border border-[#FBCFD6] font-bold">
+                                    Mudah
+                                </span>
+                                <span class="text-[#A35261] font-medium"><i class="fa-solid fa-hand-pointer text-[#E88B97] animate-pulse"></i> Ketuk untuk Balik</span>
+                            </div>
+
+                            <div class="my-auto w-full space-y-4 flex flex-col items-center">
+                                <div id="tebak-flash-visual" class="w-full py-10 rounded-2xl bg-gradient-to-br from-[#FFF5F6] to-[#FDE8EB] border border-[#FBCFD6] flex flex-wrap justify-center items-center gap-2 p-3 shadow-inner">
+                                    <!-- Visual -->
+                                </div>
+                                <div class="bg-[#FDE8EB] px-5 py-1.5 rounded-full border border-[#FBCFD6]">
+                                    <p class="text-xs font-extrabold text-[#5B1F2A]">Tebak Frasa 1-3 Kata</p>
+                                </div>
+                            </div>
+
+                            <div class="text-xs text-[#A35261] font-medium pt-3 border-t border-[#FDE8EB] w-full text-center">
+                                Pikirkan jawabannya, lalu ketuk kartu untuk melihat kunci
+                            </div>
+                        </div>
+
+                        <!-- Back Card -->
+                        <div class="absolute w-full h-full backface-hidden rotate-y-180 bg-gradient-to-b from-[#FFF5F6] via-white to-[#FDE8EB] p-7 rounded-3xl flex flex-col justify-between items-center text-center border-2 border-[#E88B97]">
+                            <div class="w-full flex justify-between items-center text-xs">
+                                <span class="bg-emerald-500 text-white px-3 py-1 rounded-full font-bold shadow-sm">
+                                    <i class="fa-solid fa-check-circle mr-1"></i> KUNCI JAWABAN
+                                </span>
+                                <span class="text-[#B24556] font-bold">Kartu Terbuka</span>
+                            </div>
+
+                            <div class="my-auto space-y-5 w-full">
+                                <div class="w-16 h-16 bg-[#E88B97] rounded-full flex items-center justify-center mx-auto text-white text-3xl shadow-lg shadow-rose-200">
+                                    <i class="fa-solid fa-key"></i>
+                                </div>
+                                <div class="space-y-2">
+                                    <p class="text-xs text-[#A35261] font-extrabold uppercase tracking-widest">Jawaban Benar:</p>
+                                    <h2 id="tebak-flash-answer" class="font-serif text-3xl md:text-4xl font-extrabold text-[#5B1F2A] bg-white px-4 py-3 rounded-2xl border border-[#FBCFD6] shadow-sm uppercase tracking-wide">---</h2>
+                                </div>
+                                <p id="tebak-flash-hint" class="text-xs text-[#7A2838] leading-relaxed bg-white/80 p-3 rounded-xl border border-[#FBCFD6] italic max-w-sm mx-auto">
+                                    ---
+                                </p>
+                            </div>
+
+                            <div class="text-xs text-[#A35261] font-medium bg-[#FDE8EB] px-4 py-1.5 rounded-full border border-[#FBCFD6]">
+                                Ketuk lagi untuk kembali ke gambar
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex justify-between items-center max-w-xl mx-auto pt-2 px-2">
+                <button onclick="prevTebakLevel()" class="px-5 py-2.5 rounded-2xl bg-white border border-[#FBCFD6] text-xs font-bold text-[#5B1F2A] shadow-sm transition-all hover:bg-[#FFF5F6] flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left text-[#E88B97]"></i> Mundur
+                </button>
+                <button onclick="randomizeTebakLevel()" class="px-4 py-2.5 rounded-2xl bg-white border border-[#FBCFD6] text-[#B24556] text-xs font-bold shadow-sm transition-all hover:bg-[#FFF5F6]" title="Acak Level">
+                    <i class="fa-solid fa-dice text-base"></i> Acak
+                </button>
+                <button onclick="nextTebakLevel()" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#E88B97] to-[#D97683] hover:from-[#D97683] text-white text-xs font-bold shadow-md shadow-rose-200 transition-all flex items-center gap-2">
+                    Lanjut <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ==================== GAME 2: MITOS VS FAKTA ==================== -->
+        <!-- Sama seperti sebelumnya, dengan Theme Selection -->
+        <section id="game-productivity" class="hidden space-y-6 animate-pop-in">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-3 bg-white p-4 rounded-3xl border border-[#F6A7B8]/60 shadow-lg shadow-rose-100/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-[#FDE8EB] flex items-center justify-center text-[#E88B97] border border-[#FBCFD6] text-xl">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-[#B24556] font-bold tracking-wider uppercase">Game Wawasan</span>
+                        <h2 class="font-serif text-xl font-bold text-[#5B1F2A]">Mitos vs Fakta</h2>
+                    </div>
+                </div>
+                <button onclick="switchGame('home')" class="text-xs text-[#A35261] hover:text-[#5B1F2A] font-bold bg-[#FFF5F6] px-4 py-2 rounded-xl border border-[#FBCFD6]">
+                    <i class="fa-solid fa-house mr-1"></i> Kembali
+                </button>
+            </div>
+
+            <!-- LAYAR 1: PILIH TEMA -->
+            <div id="prod-theme-screen" class="max-w-3xl mx-auto space-y-6">
+                <div class="text-center space-y-2">
+                    <h3 class="font-serif text-2xl font-bold text-[#5B1F2A]">Pilih Tema Pembahasan</h3>
+                    <p class="text-sm text-[#8C3A49]">Pilih topik di bawah ini untuk memulai tes wawasan Anda.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div onclick="startProdQuiz('Produktivitas')" class="bg-white hover:bg-[#FFF5F6] p-6 rounded-3xl border-2 border-[#F6A7B8]/40 hover:border-[#E88B97] cursor-pointer text-center shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="w-16 h-16 mx-auto bg-[#FDE8EB] text-[#E88B97] rounded-full flex items-center justify-center text-2xl mb-4 border border-[#FBCFD6]"><i class="fa-solid fa-rocket"></i></div>
+                        <h4 class="font-bold text-[#5B1F2A] text-lg">Produktivitas</h4>
+                        <p class="text-xs text-[#A35261] mt-2">Mitos fokus & kebiasaan kerja</p>
+                    </div>
+                    <div onclick="startProdQuiz('Manajemen Waktu')" class="bg-white hover:bg-[#FFF5F6] p-6 rounded-3xl border-2 border-[#F6A7B8]/40 hover:border-[#E88B97] cursor-pointer text-center shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="w-16 h-16 mx-auto bg-amber-50 text-amber-500 rounded-full flex items-center justify-center text-2xl mb-4 border border-amber-200"><i class="fa-solid fa-clock"></i></div>
+                        <h4 class="font-bold text-[#5B1F2A] text-lg">Manajemen Waktu</h4>
+                        <p class="text-xs text-[#A35261] mt-2">Mitos mengatur jadwal & tugas</p>
+                    </div>
+                    <div onclick="startProdQuiz('Manajemen Energi')" class="bg-white hover:bg-[#FFF5F6] p-6 rounded-3xl border-2 border-[#F6A7B8]/40 hover:border-[#E88B97] cursor-pointer text-center shadow-lg hover:-translate-y-1 transition-all">
+                        <div class="w-16 h-16 mx-auto bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-2xl mb-4 border border-emerald-200"><i class="fa-solid fa-battery-full"></i></div>
+                        <h4 class="font-bold text-[#5B1F2A] text-lg">Manajemen Energi</h4>
+                        <p class="text-xs text-[#A35261] mt-2">Mitos istirahat, tidur & energi fisik</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAYAR 2: KUIS BERJALAN -->
+            <div id="prod-quiz-screen" class="hidden max-w-xl mx-auto bg-white border-2 border-[#F6A7B8]/80 rounded-3xl p-6 md:p-8 space-y-6 shadow-2xl shadow-rose-200/50 relative">
+                <div class="flex justify-between items-center border-b border-[#FDE8EB] pb-3 text-xs">
+                    <span id="prod-number-badge" class="font-bold text-[#B24556] bg-[#FDE8EB] px-3 py-1 rounded-full border border-[#FBCFD6]">
+                        Soal 1 dari 4
+                    </span>
+                    <span id="prod-category-badge" class="text-[#A35261] font-bold bg-rose-50 px-2.5 py-1 rounded-md border border-rose-200">
+                        Topik: ---
+                    </span>
+                </div>
+
+                <div class="py-3 text-center">
+                    <h3 id="prod-statement-text" class="font-serif text-xl md:text-2xl font-bold text-[#5B1F2A] leading-relaxed">
+                        "---"
+                    </h3>
+                </div>
+
+                <div id="prod-options-grid" class="grid grid-cols-2 gap-4">
+                    <button onclick="answerProductivity(false)" class="group p-5 rounded-2xl bg-[#FFF7F8] hover:bg-rose-100/60 border-2 border-[#FBCFD6] hover:border-rose-400 transition-all flex flex-col items-center gap-2 shadow-sm">
+                        <div class="w-12 h-12 rounded-full bg-rose-500 text-white flex items-center justify-center text-xl group-hover:scale-110 transition-transform shadow-md">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <span class="font-extrabold text-base text-[#5B1F2A]">MITOS</span>
+                    </button>
+                    <button onclick="answerProductivity(true)" class="group p-5 rounded-2xl bg-[#FFF7F8] hover:bg-emerald-100/60 border-2 border-[#FBCFD6] hover:border-emerald-400 transition-all flex flex-col items-center gap-2 shadow-sm">
+                        <div class="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xl group-hover:scale-110 transition-transform shadow-md">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <span class="font-extrabold text-base text-[#5B1F2A]">FAKTA</span>
+                    </button>
+                </div>
+
+                <div id="prod-feedback-box" class="hidden rounded-2xl p-5 border transition-all space-y-3 shadow-lg">
+                    <div class="flex items-center gap-3">
+                        <div id="prod-feedback-icon" class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md"></div>
+                        <h4 id="prod-feedback-title" class="font-serif font-bold text-lg text-[#5B1F2A]">---</h4>
+                    </div>
+                    <p id="prod-feedback-desc" class="text-xs text-[#6B2A37] leading-relaxed pt-1">---</p>
+                    <div class="pt-2 text-right">
+                        <button onclick="nextProductivity()" class="px-5 py-2.5 bg-gradient-to-r from-[#E88B97] to-[#D97683] text-white rounded-xl text-xs font-bold transition-all shadow-md">
+                            Lanjut Soal <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[#F4B2B8]/40 py-4 bg-white/60 backdrop-blur-sm mt-8 text-[#A35261]">
+        <div class="max-w-5xl mx-auto px-4 text-center text-xs flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p class="font-medium">ChillBreak &copy; 2026 - Game Pemecah Suasana.</p>
+            <p class="flex items-center gap-1.5 font-semibold text-[11px]">
+                <span>Tema:</span> 
+                <span class="inline-block w-3 h-3 rounded-full bg-[#E88B97] border border-white"></span> Soft Pink Cream
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT GAME LOGIC -->
+    <script>
+        // ==========================================
+        // AUDIO FEEDBACK
+        // ==========================================
+        async function playChimeSound() {
+            try {
+                if (window.Tone) {
+                    if (Tone.context.state !== 'running') {
+                        await Tone.start();
+                    }
+                    const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+                    synth.volume.value = -12;
+                    synth.triggerAttackRelease(["C5", "E5", "G5"], "8n");
+                }
+            } catch(e) {}
+        }
+
+        // ==========================================
+        // GAME 1: TEBAK GAMBAR REBUS (20 LEVELS)
+        // Gambar saling menyesuaikan jawaban dengan rumus Emoji Math. 100% Halal.
+        // ==========================================
+        const tebakData = [
+            // MUDAH (Mengenal benda sehari-hari langsung)
+            { id: 1, diff: "Mudah", answer: "BUKU TULIS", equation: ["📚", "+", "✍️"], hint: "Gambar Buku ditambah Tulis." },
+            { id: 2, diff: "Mudah", answer: "JAM TANGAN", equation: ["⏰", "+", "🖐️"], hint: "Benda penunjuk waktu ditaruh di organ ini." },
+            { id: 3, diff: "Mudah", answer: "RUMAH SAKIT", equation: ["🏠", "+", "🤒"], hint: "Tempat merawat orang yang sedang tidak enak badan." },
+            { id: 4, diff: "Mudah", answer: "SAPU TANGAN", equation: ["🧹", "+", "🖐️"], hint: "Kain kecil untuk mengusap keringat." },
+            { id: 5, diff: "Mudah", answer: "JALAN KAKI", equation: ["🛣️", "+", "🦶"], hint: "Cara bepergian tanpa kendaraan." },
+
+            // SEDANG (Kata kiasan yang sering didengar)
+            { id: 6, diff: "Sedang", answer: "KUTU BUKU", equation: ["🐛", "+", "📚"], hint: "Sebutan untuk orang yang sangat suka membaca." },
+            { id: 7, diff: "Sedang", answer: "MEJA MAKAN", equation: ["🪑", "+", "🍽️"], hint: "Tempat keluarga berkumpul untuk menyantap hidangan." },
+            { id: 8, diff: "Sedang", answer: "BUAH HATI", equation: ["🍎", "+", "💖"], hint: "Kiasan/panggilan sayang untuk seorang anak." },
+            { id: 9, diff: "Sedang", answer: "BUNGA TIDUR", equation: ["🌸", "+", "😴"], hint: "Istilah lain dari 'Mimpi' saat malam hari." },
+            { id: 10, diff: "Sedang", answer: "BUNGA MATAHARI", equation: ["🌸", "+", "☀️"], hint: "Tanaman kuning yang selalu menghadap cahaya." },
+
+            // SULIT (Peribahasa atau istilah yang butuh pemikiran)
+            { id: 11, diff: "Sulit", answer: "CUCI MATA", equation: ["🧼", "+", "👀"], hint: "Istilah santai saat jalan-jalan sekadar melihat-lihat." },
+            { id: 12, diff: "Sulit", answer: "RINGAN TANGAN", equation: ["🪶", "+", "🖐️"], hint: "Peribahasa untuk orang yang rajin dan suka menolong." },
+            { id: 13, diff: "Sulit", answer: "KERAS KEPALA", equation: ["🪨", "+", "👤"], hint: "Sifat orang yang susah dinasihati (bandel)." },
+            { id: 14, diff: "Sulit", answer: "UANG MUKA", equation: ["💵", "+", "😐"], hint: "Istilah DP atau pembayaran pertama." },
+            { id: 15, diff: "Sulit", answer: "BINTANG KELAS", equation: ["⭐", "+", "🏫"], hint: "Sebutan untuk murid paling pintar di sekolah." },
+
+            // SANGAT SULIT (Sangat kiasan dan menantang imajinasi)
+            { id: 16, diff: "Sangat Sulit", answer: "NAIK DAUN", equation: ["🧗‍♂️", "+", "🍃"], hint: "Peribahasa saat seseorang karirnya sedang menanjak populer." },
+            { id: 17, diff: "Sangat Sulit", answer: "GIGIT JARI", equation: ["🦷", "+", "☝️"], hint: "Peribahasa saat merasa kecewa atau gagal mendapatkan sesuatu." },
+            { id: 18, diff: "Sangat Sulit", answer: "ANGKAT KAKI", equation: ["🏋️‍♂️", "+", "🦶"], hint: "Peribahasa yang berarti 'pergi atau meninggalkan tempat'." },
+            { id: 19, diff: "Sangat Sulit", answer: "KEPALA DINGIN", equation: ["🧠", "+", "🧊"], hint: "Istilah untuk kondisi tenang saat menyelesaikan masalah." },
+            { id: 20, diff: "Sangat Sulit", answer: "KAMBING HITAM", equation: ["🐐", "+", "⬛"], hint: "Peribahasa untuk pihak yang selalu dijadikan sasaran disalahkan." }
+        ];
+
+        let currentTebakIndex = 0;
+        let tebakScore = 0;
+        let completedTebakLevels = new Set();
+        let currentTebakMode = 'ketik';
+
+        function renderTebakLevelSelector() {
+            const bar = document.getElementById('level-selector-bar');
+            bar.innerHTML = '';
+            
+            tebakData.forEach((item, idx) => {
+                const isCurrent = idx === currentTebakIndex;
+                const isDone = completedTebakLevels.has(idx);
+
+                const btn = document.createElement('button');
+                btn.onclick = () => { currentTebakIndex = idx; updateTebakUI(); };
+                
+                let btnStyle = "px-4 py-2 rounded-2xl text-[11px] font-bold shrink-0 transition-all border flex items-center gap-1.5 shadow-sm ";
+                if (isCurrent) {
+                    btnStyle += "bg-[#E88B97] text-white border-[#E88B97]";
+                } else if (isDone) {
+                    btnStyle += "bg-emerald-100 text-emerald-800 border-emerald-300";
+                } else {
+                    btnStyle += "bg-white text-[#5B1F2A] border-[#FBCFD6] hover:bg-[#FFF5F6]";
+                }
+                
+                btn.className = btnStyle;
+                btn.innerHTML = `${isDone ? '<i class="fa-solid fa-check text-[10px]"></i>' : ''} ${idx + 1}`;
+                bar.appendChild(btn);
+            });
+        }
+
+        // Engine untuk menggambar kotak-kotak Rebus HTML
+        function generateRebusVisualHTML(equationArray) {
+            let html = '';
+            equationArray.forEach(item => {
+                if (item === '+' || item === '-') {
+                    html += `<div class="text-3xl md:text-4xl font-black text-[#E88B97] drop-shadow-sm px-1">${item}</div>`;
+                } else {
+                    html += `
+                        <div class="bg-white w-[70px] h-[70px] md:w-[85px] md:h-[85px] rounded-3xl shadow-md border border-[#FBCFD6] flex items-center justify-center text-4xl md:text-5xl animate-pop-in">
+                            <span class="emoji-pic">${item}</span>
+                        </div>
+                    `;
+                }
+            });
+            return html;
+        }
+
+        function updateTebakUI() {
+            const data = tebakData[currentTebakIndex];
+            
+            document.getElementById('tebak-level-title').textContent = `Level ${currentTebakIndex + 1}`;
+            document.getElementById('tebak-current-num').textContent = currentTebakIndex + 1;
+            
+            // Set Difficulty Badge Colors
+            const diffBadge = document.getElementById('tebak-difficulty-badge');
+            const flashDiffBadge = document.getElementById('tebak-flash-difficulty');
+            let diffClass = "font-bold px-3 py-1 rounded-full border ";
+            if (data.diff === 'Mudah') diffClass += "bg-emerald-100 text-emerald-700 border-emerald-300";
+            else if (data.diff === 'Sedang') diffClass += "bg-amber-100 text-amber-700 border-amber-300";
+            else if (data.diff === 'Sulit') diffClass += "bg-orange-100 text-orange-700 border-orange-300";
+            else diffClass += "bg-rose-100 text-rose-700 border-rose-300";
+            
+            diffBadge.className = diffClass;
+            diffBadge.textContent = data.diff;
+            flashDiffBadge.className = diffClass;
+            flashDiffBadge.textContent = data.diff;
+
+            // Generate visuals
+            const visualHTML = generateRebusVisualHTML(data.equation);
+            document.getElementById('tebak-rebus-visual').innerHTML = visualHTML;
+            document.getElementById('tebak-flash-visual').innerHTML = visualHTML;
+
+            // Flashcard specific texts
+            document.getElementById('tebak-flash-answer').textContent = data.answer;
+            document.getElementById('tebak-flash-hint').textContent = data.hint;
+
+            // Reset forms
+            document.getElementById('tebak-user-input').value = '';
+            const msgBox = document.getElementById('tebak-feedback-msg');
+            msgBox.classList.add('hidden');
+
+            if (document.getElementById('tebak-card-inner').classList.contains('rotate-y-180')) {
+                document.getElementById('tebak-card-inner').classList.remove('rotate-y-180');
+            }
+
+            renderTebakLevelSelector();
+        }
+
+        function checkTebakAnswer() {
+            const input = document.getElementById('tebak-user-input').value.trim().toUpperCase();
+            const target = tebakData[currentTebakIndex].answer.toUpperCase();
+            const msgBox = document.getElementById('tebak-feedback-msg');
+
+            msgBox.classList.remove('hidden');
+
+            if (input === target) {
+                msgBox.className = "p-3 rounded-2xl text-center text-xs font-extrabold bg-emerald-100 border border-emerald-300 text-emerald-800 animate-pop-in";
+                msgBox.innerHTML = `<i class="fa-solid fa-circle-check text-base mr-1"></i> BENAR SEKALI! 🎉`;
+                
+                if (!completedTebakLevels.has(currentTebakIndex)) {
+                    completedTebakLevels.add(currentTebakIndex);
+                    tebakScore += 100;
+                    document.getElementById('tebak-score-val').textContent = tebakScore;
+                    playChimeSound();
+                }
+                
+                renderTebakLevelSelector();
+
+                setTimeout(() => {
+                    if (currentTebakIndex < tebakData.length - 1) {
+                        nextTebakLevel();
+                    }
+                }, 1500);
+
+            } else {
+                msgBox.className = "p-3 rounded-2xl text-center text-xs font-extrabold bg-rose-100 border border-rose-300 text-rose-800 animate-pop-in";
+                msgBox.innerHTML = `<i class="fa-solid fa-circle-xmark text-base mr-1"></i> Jawaban belum pas. Silakan periksa kembali gambar petunjuknya!`;
+            }
+        }
+
+        function handleTebakKeyPress(e) {
+            if (e.key === 'Enter') {
+                checkTebakAnswer();
+            }
+        }
+
+        function showTebakHint() {
+            const data = tebakData[currentTebakIndex];
+            const msgBox = document.getElementById('tebak-feedback-msg');
+            msgBox.classList.remove('hidden');
+            msgBox.className = "p-3 rounded-2xl text-center text-xs font-bold bg-amber-50 border border-amber-200 text-amber-900 animate-pop-in";
+            msgBox.innerHTML = `<i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> <b>Maksud Petunjuk:</b> ${data.hint}`;
+        }
+
+        function showTebakAnswer() {
+            const data = tebakData[currentTebakIndex];
+            const msgBox = document.getElementById('tebak-feedback-msg');
+            msgBox.classList.remove('hidden');
+            msgBox.className = "p-3 rounded-2xl text-center text-xs font-bold bg-[#FDE8EB] border border-[#FBCFD6] text-[#5B1F2A] animate-pop-in";
+            msgBox.innerHTML = `<i class="fa-solid fa-key text-amber-500 mr-1"></i> <b>Kunci Jawaban:</b> ${data.answer}`;
+        }
+
+        function setTebakMode(mode) {
+            currentTebakMode = mode;
+            const btnKetik = document.getElementById('mode-btn-ketik');
+            const btnFlash = document.getElementById('mode-btn-flash');
+            const modeKetikBox = document.getElementById('tebak-mode-ketik-container');
+            const modeFlashBox = document.getElementById('tebak-mode-flash-container');
+
+            if (mode === 'ketik') {
+                btnKetik.className = "px-3.5 py-1.5 rounded-xl font-bold transition-all bg-[#E88B97] text-white shadow-sm";
+                btnFlash.className = "px-3.5 py-1.5 rounded-xl font-bold transition-all text-[#A35261] hover:text-[#5B1F2A]";
+                modeKetikBox.classList.remove('hidden');
+                modeFlashBox.classList.add('hidden');
+            } else {
+                btnFlash.className = "px-3.5 py-1.5 rounded-xl font-bold transition-all bg-[#E88B97] text-white shadow-sm";
+                btnKetik.className = "px-3.5 py-1.5 rounded-xl font-bold transition-all text-[#A35261] hover:text-[#5B1F2A]";
+                modeFlashBox.classList.remove('hidden');
+                modeKetikBox.classList.add('hidden');
+            }
+        }
+
+        function flipTebakCard() {
+            const cardInner = document.getElementById('tebak-card-inner');
+            if (cardInner.classList.contains('rotate-y-180')) {
+                cardInner.classList.remove('rotate-y-180');
+            } else {
+                cardInner.classList.add('rotate-y-180');
+            }
+        }
+
+        function nextTebakLevel() {
+            currentTebakIndex = (currentTebakIndex + 1) % tebakData.length;
+            updateTebakUI();
+        }
+
+        function prevTebakLevel() {
+            currentTebakIndex = (currentTebakIndex - 1 + tebakData.length) % tebakData.length;
+            updateTebakUI();
+        }
+
+        function randomizeTebakLevel() {
+            currentTebakIndex = Math.floor(Math.random() * tebakData.length);
+            updateTebakUI();
+        }
+
+
+        // ==========================================
+        // GAME 2: MITOS VS FAKTA (THEMED CATEGORIES)
+        // ==========================================
+        const productivityDataAll = [
+            // Kategori: Produktivitas
+            { category: "Produktivitas", statement: "Multitasking (mengerjakan beberapa tugas sekaligus) membuat pekerjaan kita selesai jauh lebih cepat.", isFakta: false, title: "Ini Adalah MITOS!", explanation: "Otak melakukan 'task-switching' (pindah fokus cepat), yang menurunkan efisiensi 40% dan memicu burnout." },
+            { category: "Produktivitas", statement: "Fenomena 'Parkinson's Law' menyatakan pekerjaan akan mengembang sesuai sisa waktu yang disediakan.", isFakta: true, title: "Tepat Sekali! Ini FAKTA.", explanation: "Jika kita memberi waktu 1 minggu untuk tugas 2 jam, otak akan menghabiskan seluruh minggu tersebut." },
+            { category: "Produktivitas", statement: "Merapikan ruang kerja atau meja belajar dapat menurunkan stres kognitif & tingkat ketelitian.", isFakta: true, title: "Benar! Ini FAKTA.", explanation: "Kekacauan objek di sekitar bersaing memperebutkan perhatian di korteks visual otak. Meja rapi mengurangi beban itu." },
+            { category: "Produktivitas", statement: "Mendengarkan musik berlirik sambil membaca dokumen membantu kita fokus.", isFakta: false, title: "Ternyata Ini MITOS!", explanation: "Pusat bahasa di otak akan terpecah antara mencerna lirik lagu dan menyusun kalimat pada dokumen." },
+            
+            // Kategori: Manajemen Waktu
+            { category: "Manajemen Waktu", statement: "Makin banyak daftar tugas (To-Do List > 10 item) dalam sehari, makin produktif hari kita.", isFakta: false, title: "Ternyata Ini MITOS!", explanation: "Daftar panjang memicu 'decision paralysis'. Lebih efektif fokus pada 1-3 tugas prioritas (Rule of 3)." },
+            { category: "Manajemen Waktu", statement: "Teknik 'Time Blocking' (blok waktu spesifik di kalender) lebih efektif dibanding To-Do List biasa.", isFakta: true, title: "Sangat Benar! Ini FAKTA.", explanation: "Menentukan waktu & lokasi spesifik kapan tugas dikerjakan meningkatkan penyelesaian hingga 2x lipat." },
+            { category: "Manajemen Waktu", statement: "Bekerja lurus 8 jam tanpa istirahat menghasilkan output paling optimal.", isFakta: false, title: "Ini Adalah MITOS!", explanation: "Titik fokus optimal menurun setelah 50 menit. Tanpa istirahat, tingkat kesalahan kerja akan melonjak tajam." },
+            { category: "Manajemen Waktu", statement: "Metode 'Eat That Frog' berarti kita mengerjakan tugas paling sulit/berat di awal pagi.", isFakta: true, title: "Benar Sekali! Ini FAKTA.", explanation: "Daya kemauan (willpower) dan energi kognitif manusia berada di titik tertinggi pada pagi hari." },
+            
+            // Kategori: Manajemen Energi
+            { category: "Manajemen Energi", statement: "Minum kopi tepat saat bangun tidur adalah waktu terbaik mendongkrak energi harian.", isFakta: false, title: "Ternyata Ini MITOS!", explanation: "Kortisol alami tubuh berada di puncak saat baru bangun. Minum kopi idealnya 90-120 menit setelah bangun." },
+            { category: "Manajemen Energi", statement: "Mengelola energi (fisik, emosional) jauh lebih penting dibanding mengelola waktu.", isFakta: true, title: "Luar Biasa! Ini FAKTA.", explanation: "Fokus 1 jam saat energi puncak jauh lebih berdampak dibanding 4 jam memaksakan diri saat kelelahan total." },
+            { category: "Manajemen Energi", statement: "Power nap (tidur siang 20 menit) menyegarkan kewaspadaan otak tanpa bikin pusing.", isFakta: true, title: "Benar! Ini FAKTA.", explanation: "Tidur 20 menit tidak membuat otak masuk ke fase 'deep sleep', sehingga memori segar tanpa efek pusing (sleep inertia)." },
+            { category: "Manajemen Energi", statement: "Semua orang sukses harus dan wajib bangun jam 4 pagi.", isFakta: false, title: "Ini Adalah MITOS!", explanation: "Setiap orang punya jam biologis (chronotype) berbeda. Yang krusial adalah konsistensi tidur 7-8 jam per malam." }
+        ];
+
+        let currentActiveQuizData = []; 
+        let currentProdIndex = 0;
+        let prodScore = 0;
+        let answeredProd = false;
+        let currentActiveTheme = "";
+
+        function startProdQuiz(themeName) {
+            currentActiveTheme = themeName;
+            currentActiveQuizData = productivityDataAll.filter(q => q.category === themeName);
+            
+            currentProdIndex = 0;
+            prodScore = 0;
+            
+            document.getElementById('prod-theme-screen').classList.add('hidden');
+            document.getElementById('prod-quiz-screen').classList.remove('hidden');
+
+            updateProductivityUI();
+        }
+
+        function updateProductivityUI() {
+            answeredProd = false;
+            const data = currentActiveQuizData[currentProdIndex];
+            
+            document.getElementById('prod-number-badge').textContent = `Soal ${currentProdIndex + 1} dari ${currentActiveQuizData.length}`;
+            document.getElementById('prod-category-badge').textContent = `Topik: ${data.category}`;
+            document.getElementById('prod-statement-text').textContent = `"${data.statement}"`;
+            
+            document.getElementById('prod-options-grid').classList.remove('hidden');
+            document.getElementById('prod-feedback-box').classList.add('hidden');
+            document.getElementById('prod-score-val').textContent = `${prodScore} / ${currentActiveQuizData.length}`;
+        }
+
+        function answerProductivity(userAnswer) {
+            if (answeredProd) return;
+            answeredProd = true;
+
+            const data = currentActiveQuizData[currentProdIndex];
+            const isCorrect = (userAnswer === data.isFakta);
+
+            if (isCorrect) prodScore++;
+
+            const feedbackBox = document.getElementById('prod-feedback-box');
+            const feedbackIcon = document.getElementById('prod-feedback-icon');
+            const feedbackTitle = document.getElementById('prod-feedback-title');
+            const feedbackDesc = document.getElementById('prod-feedback-desc');
+
+            feedbackBox.classList.remove('hidden');
+
+            if (isCorrect) {
+                feedbackBox.className = "rounded-2xl p-5 border bg-emerald-50 border-emerald-200 text-emerald-900 space-y-2 shadow-lg animate-pop-in";
+                feedbackIcon.className = "w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm bg-emerald-500 shadow-md";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-check"></i>`;
+                feedbackTitle.textContent = "Tebakan Anda Benar! 🎉";
+                playChimeSound();
+            } else {
+                feedbackBox.className = "rounded-2xl p-5 border bg-rose-50 border-rose-200 text-rose-900 space-y-2 shadow-lg animate-pop-in";
+                feedbackIcon.className = "w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm bg-rose-500 shadow-md";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+                feedbackTitle.textContent = "Tebakan Kurang Tepat!";
+            }
+
+            feedbackDesc.textContent = `${data.title} ${data.explanation}`;
+            document.getElementById('prod-score-val').textContent = `${prodScore} / ${currentActiveQuizData.length}`;
+        }
+
+        function nextProductivity() {
+            if (currentProdIndex < currentActiveQuizData.length - 1) {
+                currentProdIndex++;
+                updateProductivityUI();
+            } else {
+                showProductivityResult();
+            }
+        }
+
+        function showProductivityResult() {
+            const feedbackBox = document.getElementById('prod-feedback-box');
+            document.getElementById('prod-options-grid').classList.add('hidden');
+            feedbackBox.classList.remove('hidden');
+            feedbackBox.className = "rounded-2xl p-6 border bg-white border-[#FBCFD6] text-center space-y-4 shadow-xl animate-pop-in";
+            feedbackBox.innerHTML = `
+                <div class="w-14 h-14 rounded-full bg-[#E88B97] text-white flex items-center justify-center text-2xl mx-auto shadow-md">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-extrabold text-[#5B1F2A]">Kuis Selesai!</h3>
+                <p class="text-[#7A2838] text-xs font-semibold">Skor Akhir: <span class="font-extrabold text-[#B24556] text-lg px-2 py-0.5 bg-[#FFF5F6] rounded-md border border-[#FBCFD6]">${prodScore} dari ${currentActiveQuizData.length}</span></p>
+                <div class="pt-2 flex flex-col sm:flex-row justify-center gap-2">
+                    <button onclick="startProdQuiz('${currentActiveTheme}')" class="px-5 py-2.5 bg-gradient-to-r from-[#E88B97] to-[#D97683] text-white rounded-xl text-xs font-bold shadow-md">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Ulangi
+                    </button>
+                    <button onclick="backToProdTheme()" class="px-5 py-2.5 bg-[#FFF5F6] text-[#A35261] rounded-xl text-xs font-bold border border-[#FBCFD6]">
+                        Pilih Topik Lain
+                    </button>
+                </div>
+            `;
+        }
+
+        function backToProdTheme() {
+            document.getElementById('prod-quiz-screen').classList.add('hidden');
+            document.getElementById('prod-theme-screen').classList.remove('hidden');
+            document.getElementById('prod-score-val').textContent = "0 / 0";
+        }
+
+
+        // ==========================================
+        // ROUTING & NAVIGATION
+        // ==========================================
+        function switchGame(gameId) {
+            document.getElementById('game-home').classList.add('hidden');
+            document.getElementById('game-tebak').classList.add('hidden');
+            document.getElementById('game-productivity').classList.add('hidden');
+
+            const btnTebak = document.getElementById('nav-btn-tebak');
+            const btnProd = document.getElementById('nav-btn-productivity');
+
+            btnTebak.className = "px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 text-[#A35261] hover:text-[#5B1F2A]";
+            btnProd.className = "px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 flex items-center gap-2 text-[#A35261] hover:text-[#5B1F2A]";
+
+            if (gameId === 'tebak') {
+                document.getElementById('game-tebak').classList.remove('hidden');
+                btnTebak.className = "px-5 py-2 rounded-full text-xs md:text-sm font-bold transition-all duration-300 flex items-center gap-2 bg-[#E88B97] text-white shadow-sm";
+                updateTebakUI();
+            } else if (gameId === 'productivity') {
+                document.getElementById('game-productivity').classList.remove('hidden');
+                btnProd.className = "px-5 py-2 rounded-full text-xs md:text-sm font-bold transition-all duration-300 flex items-center gap-2 bg-[#E88B97] text-white shadow-sm";
+                backToProdTheme();
+            } else {
+                document.getElementById('game-home').classList.remove('hidden');
+            }
+        }
+
+        window.onload = function() {
+            updateTebakUI();
+        };
+    </script>
+</body>
+</html>
