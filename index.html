@@ -211,14 +211,14 @@ Pilih tema menarik: <b>Produktivitas</b>, <b>Manajemen Waktu</b>, atau <b>Manaje
 </div>
 ​<!-- Level Selector Bar -->
 <div id="level-selector-bar" class="flex gap-2 overflow-x-auto py-1 scrollbar-none max-w-full"></div>
-​<!-- CANVAS TEBAKAN (LEBIH LUAS DAN PAS LAYAR) -->
+​<!-- CANVAS TEBAKAN -->
 <div class="w-full">
 <!-- MODE KETIK -->
 <div id="tebak-mode-ketik-container" class="bg-white rounded-3xl border-2 border-[#F6A7B8]/80 p-5 sm:p-7 shadow-2xl shadow-rose-200/50 space-y-5 relative">
 ​<div class="flex justify-between items-center text-xs sm:text-sm">
 <div class="flex gap-2 items-center flex-wrap">
 <span class="bg-[#FDE8EB] text-[#B24556] font-extrabold px-3 py-1 rounded-full border border-[#FBCFD6]">
-<i class="fa-solid fa-star text-amber-400 mr-1"></i> Soal <span id="tebak-current-num">1</span> / <span id="tebak-total-num">20</span>
+<i class="fa-solid fa-star text-amber-400 mr-1"></i> Soal <span id="tebak-current-num">1</span> / 20
 </span>
 <span id="tebak-difficulty-badge" class="font-bold px-3 py-1 rounded-full border">Mudah</span>
 </div>
@@ -226,7 +226,7 @@ Pilih tema menarik: <b>Produktivitas</b>, <b>Manajemen Waktu</b>, atau <b>Manaje
 Skor: <span id="tebak-score-val">0</span>
 </span>
 </div>
-​<!-- Tempat Rebus Gambar (Besar & Responsif) -->
+​<!-- Tempat Rebus Gambar -->
 <div class="w-full min-h-[220px] sm:min-h-[280px] rounded-3xl bg-gradient-to-br from-[#FFF5F6] to-[#FDE8EB] border-2 border-[#FBCFD6] p-4 sm:p-6 shadow-inner flex flex-col justify-center items-center">
 <div id="tebak-rebus-visual" class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 transition-all duration-300"></div>
 </div>
@@ -380,7 +380,7 @@ Lanjut <i class="fa-solid fa-arrow-right"></i>
 <span class="font-extrabold text-sm sm:text-base text-[#5B1F2A]">FAKTA</span>
 </button>
 </div>
-​<div id="prod-feedback-box" class="hidden rounded-2xl p-5 border transition-all space-y-3 shadow-lg">
+​<div id="prod-feedback-box" class="hidden rounded-2xl p-4 sm:p-5 border transition-all space-y-3 shadow-lg">
 <div class="flex items-center gap-3">
 <div id="prod-feedback-icon" class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md"></div>
 <h4 id="prod-feedback-title" class="font-serif font-bold text-base sm:text-lg text-[#5B1F2A]">---</h4>
@@ -703,7 +703,6 @@ const data = currentActiveQuizData[currentProdIndex];
 document.getElementById('prod-category-badge').textContent = Topik: ${data.category};
 document.getElementById('prod-statement-text').textContent = "${data.statement}";
 ​document.getElementById('prod-options-grid').classList.remove('hidden');
-document.getElementById('prod-[#FEED_BACK_BOX_ID]')?.classList.add('hidden');
 document.getElementById('prod-feedback-box').classList.add('hidden');
 }
 ​function answerProductivity(userAnswer) {
