@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A7%A9%3C/text%3E%3C/svg%3E">
 <title>ChillBreak - Game Tebak Gambar & Pemecah Suasana Soft Pink</title>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
-<!-- Font Awesome Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <!-- Tone.js for Audio Feedback -->
@@ -60,6 +59,7 @@ button:focus-visible, [role="button"]:focus-visible, input:focus-visible {
 ::-webkit-scrollbar-thumb { background: #E88B97; border-radius: 999px; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+.ic { display:inline-block; line-height:1; font-style:normal; font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; }
 .emoji-pic { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12)); user-select: none; -webkit-user-select: none; }
 
 /* Safe area (notch) untuk HP modern */
@@ -96,7 +96,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
   <div class="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex flex-row justify-between items-center gap-2">
     <div class="flex items-center gap-2.5 cursor-pointer group min-w-0" role="button" tabindex="0" aria-label="Kembali ke beranda" onclick="switchGame('home')" onkeydown="activateOnKey(event, () => switchGame('home'))">
       <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#E88B97] to-[#FBCFD6] flex items-center justify-center text-white shadow-md shadow-rose-200 group-hover:scale-105 transition-transform shrink-0">
-        <i class="fa-solid fa-shapes text-lg"></i>
+        <span class="ic text-lg" aria-hidden="true">🎮</span>
       </div>
       <div class="logo-text min-w-0">
         <h1 class="font-serif text-lg sm:text-2xl font-bold tracking-tight text-[#5B1F2A]">ChillBreak</h1>
@@ -105,10 +105,10 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
     </div>
     <nav class="flex items-center gap-1 sm:gap-2 bg-[#FFF5F6] p-1.5 rounded-full border border-[#F6A7B8]/40 shadow-inner shrink-0">
       <button id="nav-btn-tebak" onclick="switchGame('tebak')" class="px-3 py-1.5 sm:px-5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5">
-        <i class="fa-solid fa-images text-[#E88B97]"></i> <span>Tebak Gambar</span>
+        <span class="ic text-[#E88B97]" aria-hidden="true">🧩</span> <span>Tebak Gambar</span>
       </button>
       <button id="nav-btn-productivity" onclick="switchGame('productivity')" class="px-3 py-1.5 sm:px-5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5">
-        <i class="fa-solid fa-brain text-[#E88B97]"></i> <span>Mitos vs Fakta</span>
+        <span class="ic text-[#E88B97]" aria-hidden="true">⚖️</span> <span>Mitos vs Fakta</span>
       </button>
     </nav>
   </div>
@@ -121,7 +121,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
   <section id="game-home" class="text-center py-2 space-y-5 sm:space-y-10 animate-pop-in my-auto">
     <div class="max-w-2xl mx-auto space-y-2 sm:space-y-4">
       <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-[#B24556] text-xs font-bold tracking-wide shadow-md border border-[#FBCFD6]">
-        <i class="fa-solid fa-sparkles text-amber-400"></i> Main Bareng & Santai
+        <span class="ic text-amber-400" aria-hidden="true">✨</span> Main Bareng & Santai
       </span>
       <h2 class="font-serif text-2xl sm:text-5xl font-extrabold text-[#5B1F2A] tracking-tight leading-snug">
         Cairkan Suasana dengan
@@ -137,7 +137,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
       <div role="button" tabindex="0" onclick="switchGame('tebak')" onkeydown="activateOnKey(event, () => switchGame('tebak'))" class="group bg-white hover:bg-[#FFF5F6] border-2 border-[#F6A7B8]/60 hover:border-[#E88B97] p-3.5 sm:p-8 rounded-3xl cursor-pointer transition-all duration-300 text-left flex flex-col justify-between shadow-xl shadow-rose-100/50 hover:-translate-y-1 active:scale-[0.98]">
         <div class="space-y-2 sm:space-y-4">
           <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-[#FDE8EB] border border-[#FBCFD6] flex items-center justify-center text-[#E88B97] text-lg sm:text-2xl group-hover:scale-110 transition-all">
-            <i class="fa-solid fa-images"></i>
+            <span class="ic" aria-hidden="true">🧩</span>
           </div>
           <div>
             <span class="inline-block text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#B24556] bg-[#FDE8EB] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md border border-[#FBCFD6]">20 Level Logika</span>
@@ -151,7 +151,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
           <span class="hidden sm:inline">Mulai Bermain</span>
           <span class="sm:hidden">Main</span>
           <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#FDE8EB] flex items-center justify-center group-hover:translate-x-1.5 transition-transform">
-            <i class="fa-solid fa-arrow-right text-xs"></i>
+            <span class="ic text-xs" aria-hidden="true">→</span>
           </div>
         </div>
       </div>
@@ -160,7 +160,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
       <div role="button" tabindex="0" onclick="switchGame('productivity')" onkeydown="activateOnKey(event, () => switchGame('productivity'))" class="group bg-white hover:bg-[#FFF5F6] border-2 border-[#F6A7B8]/60 hover:border-[#E88B97] p-3.5 sm:p-8 rounded-3xl cursor-pointer transition-all duration-300 text-left flex flex-col justify-between shadow-xl shadow-rose-100/50 hover:-translate-y-1 active:scale-[0.98]">
         <div class="space-y-2 sm:space-y-4">
           <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-[#FDE8EB] border border-[#FBCFD6] flex items-center justify-center text-[#E88B97] text-lg sm:text-2xl group-hover:scale-110 transition-all">
-            <i class="fa-solid fa-bolt"></i>
+            <span class="ic" aria-hidden="true">⚖️</span>
           </div>
           <div>
             <span class="inline-block text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#B24556] bg-[#FDE8EB] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md border border-[#FBCFD6]">Wawasan & Self-Care</span>
@@ -174,7 +174,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
           <span class="hidden sm:inline">Pilih Tema Kuis</span>
           <span class="sm:hidden">Kuis</span>
           <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#FDE8EB] flex items-center justify-center group-hover:translate-x-1.5 transition-transform">
-            <i class="fa-solid fa-arrow-right text-xs"></i>
+            <span class="ic text-xs" aria-hidden="true">→</span>
           </div>
         </div>
       </div>
@@ -187,7 +187,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
       <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-2xl bg-[#FDE8EB] flex items-center justify-center text-[#E88B97] border border-[#FBCFD6] text-xl shrink-0">
-            <i class="fa-solid fa-images"></i>
+            <span class="ic" aria-hidden="true">🧩</span>
           </div>
           <div>
             <span class="text-[10px] text-[#B24556] font-bold tracking-wider uppercase">Tebak Gambar</span>
@@ -195,12 +195,12 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
           </div>
         </div>
         <button onclick="switchGame('home')" aria-label="Kembali ke beranda" class="sm:hidden text-xs text-[#A35261] font-bold bg-[#FFF5F6] px-3 py-2 rounded-xl border border-[#FBCFD6]">
-          <i class="fa-solid fa-house"></i>
+          <span class="ic" aria-hidden="true">🏠</span>
         </button>
       </div>
       <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-[#FDE8EB]">
         <div class="flex items-center gap-2 bg-[#FDE8EB] px-3.5 py-1.5 rounded-2xl border border-[#E88B97] shadow-sm">
-          <span class="text-[#E88B97] text-sm animate-bounce-soft"><i class="fa-solid fa-hourglass-half"></i></span>
+          <span class="text-[#E88B97] text-sm animate-bounce-soft"><span class="ic" aria-hidden="true">⏳</span></span>
           <span id="timer-display-tebak" class="font-mono text-xs sm:text-sm font-bold text-[#5B1F2A]">01:00</span>
           <button onclick="openTimerModal()" class="text-[10px] bg-[#E88B97] text-white px-2 py-0.5 rounded-lg ml-1 hover:bg-[#D97683]">Atur</button>
         </div>
@@ -209,7 +209,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
           <button id="mode-btn-flash" onclick="setTebakMode('flash')" class="px-3.5 py-1.5 rounded-xl font-bold transition-all text-[#A35261]">Kartu</button>
         </div>
         <button onclick="switchGame('home')" aria-label="Kembali ke beranda" class="hidden sm:block text-xs text-[#A35261] font-bold bg-[#FFF5F6] px-3 py-2 rounded-xl border border-[#FBCFD6]">
-          <i class="fa-solid fa-house"></i>
+          <span class="ic" aria-hidden="true">🏠</span>
         </button>
       </div>
     </div>
@@ -222,7 +222,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
         <div class="flex flex-wrap gap-2 justify-between items-center text-xs sm:text-sm">
           <div class="flex gap-2 items-center flex-wrap">
             <span class="bg-[#FDE8EB] text-[#B24556] font-extrabold px-3 py-1 rounded-full border border-[#FBCFD6]">
-              <i class="fa-solid fa-star text-amber-400 mr-1"></i> Soal <span id="tebak-current-num">1</span> / 20
+              <span class="ic text-amber-400 mr-1" aria-hidden="true">⭐</span> Soal <span id="tebak-current-num">1</span> / 20
             </span>
             <span id="tebak-difficulty-badge" class="font-bold px-3 py-1 rounded-full border">Mudah</span>
           </div>
@@ -239,7 +239,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
           <div class="flex gap-2">
             <input type="text" id="tebak-user-input" placeholder="Ketik 1-3 kata jawabanmu..." autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="send" onkeydown="handleTebakKeyPress(event)" class="w-full min-w-0 px-4 py-3 sm:py-4 rounded-2xl bg-[#FFF7F8] border-2 border-[#FBCFD6] text-[#5B1F2A] font-bold text-center text-sm sm:text-lg focus:outline-none focus:border-[#E88B97] placeholder-[#C48894] shadow-inner uppercase tracking-wide">
             <button onclick="checkTebakAnswer()" class="px-5 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#E88B97] to-[#D97683] text-white font-extrabold rounded-2xl shadow-md active:scale-95 shrink-0 text-sm sm:text-base">
-              Cek <i class="fa-solid fa-paper-plane text-xs ml-1"></i>
+              Cek <span class="ic text-xs ml-1" aria-hidden="true">✔️</span>
             </button>
           </div>
           <div id="tebak-feedback-msg" role="status" aria-live="polite" class="hidden p-3 rounded-2xl text-center text-xs sm:text-sm font-bold transition-all"></div>
@@ -247,10 +247,10 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
 
         <div class="flex justify-between items-center gap-2 pt-3 border-t border-[#FDE8EB]">
           <button onclick="showTebakHint()" class="text-xs sm:text-sm font-bold text-[#A35261] bg-[#FFF5F6] px-4 py-2.5 rounded-xl border border-[#FBCFD6] active:scale-95">
-            <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Bantuan
+            <span class="ic text-amber-500 mr-1" aria-hidden="true">💡</span> Bantuan
           </button>
           <button onclick="showTebakAnswer()" class="text-xs sm:text-sm font-bold text-[#A35261] bg-gray-50 px-4 py-2.5 rounded-xl border border-gray-200 active:scale-95">
-            <i class="fa-solid fa-key text-amber-500 mr-1"></i> Kunci
+            <span class="ic text-amber-500 mr-1" aria-hidden="true">🔑</span> Kunci
           </button>
         </div>
       </div>
@@ -261,7 +261,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
           <div class="absolute w-full h-full backface-hidden bg-white p-5 sm:p-8 rounded-3xl flex flex-col justify-between items-center text-center">
             <div class="w-full flex justify-between items-center text-xs sm:text-sm gap-2">
               <span id="tebak-flash-difficulty" class="bg-[#FDE8EB] text-[#B24556] px-3 py-1 rounded-full border border-[#FBCFD6] font-bold">Mudah</span>
-              <span class="text-[#A35261] font-medium"><i class="fa-solid fa-hand-pointer text-[#E88B97] animate-pulse"></i> Ketuk untuk Balik</span>
+              <span class="text-[#A35261] font-medium"><span class="ic text-[#E88B97] animate-pulse" aria-hidden="true">👆</span> Ketuk untuk Balik</span>
             </div>
             <div class="my-auto w-full space-y-4 flex flex-col items-center">
               <div id="tebak-flash-visual" class="w-full py-8 sm:py-10 rounded-2xl bg-gradient-to-br from-[#FFF5F6] to-[#FDE8EB] border border-[#FBCFD6] flex flex-wrap justify-center items-center gap-2 sm:gap-3 p-3 sm:p-4 shadow-inner"></div>
@@ -281,7 +281,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
             </div>
             <div class="my-auto space-y-4 w-full">
               <div class="w-16 h-16 bg-[#E88B97] rounded-full flex items-center justify-center mx-auto text-white text-3xl shadow-lg">
-                <i class="fa-solid fa-key"></i>
+                <span class="ic" aria-hidden="true">🔑</span>
               </div>
               <div class="space-y-2">
                 <p class="text-xs text-[#A35261] font-extrabold uppercase tracking-widest">Jawaban Benar:</p>
@@ -299,13 +299,13 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
 
     <div class="flex justify-between items-center gap-2 pt-2 px-1">
       <button onclick="prevTebakLevel()" class="px-4 sm:px-5 py-2.5 rounded-2xl bg-white border border-[#FBCFD6] text-xs sm:text-sm font-bold text-[#5B1F2A] shadow-sm flex items-center gap-2 active:scale-95">
-        <i class="fa-solid fa-arrow-left text-[#E88B97]"></i> Mundur
+        <span class="ic text-[#E88B97]" aria-hidden="true">←</span> Mundur
       </button>
       <button onclick="randomizeTebakLevel()" class="px-4 py-2.5 rounded-2xl bg-white border border-[#FBCFD6] text-[#B24556] text-xs sm:text-sm font-bold shadow-sm active:scale-95" title="Acak Level">
-        <i class="fa-solid fa-dice text-base"></i> Acak
+        <span class="ic text-base" aria-hidden="true">🎲</span> Acak
       </button>
       <button onclick="nextTebakLevel()" class="px-4 sm:px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#E88B97] to-[#D97683] text-white text-xs sm:text-sm font-bold shadow-md flex items-center gap-2 active:scale-95">
-        Lanjut <i class="fa-solid fa-arrow-right"></i>
+        Lanjut <span class="ic" aria-hidden="true">→</span>
       </button>
     </div>
   </section>
@@ -316,7 +316,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
       <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-2xl bg-[#FDE8EB] flex items-center justify-center text-[#E88B97] border border-[#FBCFD6] text-xl shrink-0">
-            <i class="fa-solid fa-brain"></i>
+            <span class="ic" aria-hidden="true">⚖️</span>
           </div>
           <div>
             <span class="text-[10px] text-[#B24556] font-bold tracking-wider uppercase">Game Wawasan</span>
@@ -324,17 +324,17 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
           </div>
         </div>
         <button onclick="switchGame('home')" aria-label="Kembali ke beranda" class="sm:hidden text-xs text-[#A35261] font-bold bg-[#FFF5F6] px-3 py-2 rounded-xl border border-[#FBCFD6]">
-          <i class="fa-solid fa-house"></i>
+          <span class="ic" aria-hidden="true">🏠</span>
         </button>
       </div>
       <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-[#FDE8EB]">
         <div class="flex items-center gap-2 bg-[#FDE8EB] px-3.5 py-1.5 rounded-2xl border border-[#E88B97] shadow-sm">
-          <span class="text-[#E88B97] text-sm animate-bounce-soft"><i class="fa-solid fa-hourglass-half"></i></span>
+          <span class="text-[#E88B97] text-sm animate-bounce-soft"><span class="ic" aria-hidden="true">⏳</span></span>
           <span id="timer-display-prod" class="font-mono text-xs sm:text-sm font-bold text-[#5B1F2A]">01:00</span>
           <button onclick="openTimerModal()" class="text-[10px] bg-[#E88B97] text-white px-2 py-0.5 rounded-lg ml-1 hover:bg-[#D97683]">Atur</button>
         </div>
         <button onclick="switchGame('home')" class="hidden sm:block text-xs text-[#A35261] font-bold bg-[#FFF5F6] px-4 py-2 rounded-xl border border-[#FBCFD6]">
-          <i class="fa-solid fa-house mr-1"></i> Kembali
+          <span class="ic mr-1" aria-hidden="true">🏠</span> Kembali
         </button>
       </div>
     </div>
@@ -346,17 +346,17 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div role="button" tabindex="0" onclick="startProdQuiz('Produktivitas')" onkeydown="activateOnKey(event, () => startProdQuiz('Produktivitas'))" class="bg-white hover:bg-[#FFF5F6] p-5 sm:p-6 rounded-3xl border-2 border-[#F6A7B8]/40 hover:border-[#E88B97] cursor-pointer text-center shadow-lg hover:-translate-y-1 active:scale-[0.98] transition-all">
-          <div class="w-16 h-16 mx-auto bg-[#FDE8EB] text-[#E88B97] rounded-full flex items-center justify-center text-2xl mb-4 border border-[#FBCFD6]"><i class="fa-solid fa-rocket"></i></div>
+          <div class="w-16 h-16 mx-auto bg-[#FDE8EB] text-[#E88B97] rounded-full flex items-center justify-center text-2xl mb-4 border border-[#FBCFD6]"><span class="ic" aria-hidden="true">🚀</span></div>
           <h4 class="font-bold text-[#5B1F2A] text-lg">Produktivitas</h4>
           <p class="text-xs text-[#A35261] mt-1.5">Mitos fokus & kebiasaan kerja</p>
         </div>
         <div role="button" tabindex="0" onclick="startProdQuiz('Manajemen Waktu')" onkeydown="activateOnKey(event, () => startProdQuiz('Manajemen Waktu'))" class="bg-white hover:bg-[#FFF5F6] p-5 sm:p-6 rounded-3xl border-2 border-[#F6A7B8]/40 hover:border-[#E88B97] cursor-pointer text-center shadow-lg hover:-translate-y-1 active:scale-[0.98] transition-all">
-          <div class="w-16 h-16 mx-auto bg-amber-50 text-amber-500 rounded-full flex items-center justify-center text-2xl mb-4 border border-amber-200"><i class="fa-solid fa-clock"></i></div>
+          <div class="w-16 h-16 mx-auto bg-amber-50 text-amber-500 rounded-full flex items-center justify-center text-2xl mb-4 border border-amber-200"><span class="ic" aria-hidden="true">🕒</span></div>
           <h4 class="font-bold text-[#5B1F2A] text-lg">Manajemen Waktu</h4>
           <p class="text-xs text-[#A35261] mt-1.5">Mitos mengatur jadwal & tugas</p>
         </div>
         <div role="button" tabindex="0" onclick="startProdQuiz('Manajemen Energi')" onkeydown="activateOnKey(event, () => startProdQuiz('Manajemen Energi'))" class="bg-white hover:bg-[#FFF5F6] p-5 sm:p-6 rounded-3xl border-2 border-[#F6A7B8]/40 hover:border-[#E88B97] cursor-pointer text-center shadow-lg hover:-translate-y-1 active:scale-[0.98] transition-all">
-          <div class="w-16 h-16 mx-auto bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-2xl mb-4 border border-emerald-200"><i class="fa-solid fa-battery-full"></i></div>
+          <div class="w-16 h-16 mx-auto bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center text-2xl mb-4 border border-emerald-200"><span class="ic" aria-hidden="true">🔋</span></div>
           <h4 class="font-bold text-[#5B1F2A] text-lg">Manajemen Energi</h4>
           <p class="text-xs text-[#A35261] mt-1.5">Mitos istirahat & energi fisik</p>
         </div>
@@ -376,13 +376,13 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
       <div id="prod-options-grid" class="grid grid-cols-2 gap-3 sm:gap-4">
         <button onclick="answerProductivity(false)" class="group p-4 sm:p-5 rounded-2xl bg-[#FFF7F8] hover:bg-rose-100/60 border-2 border-[#FBCFD6] hover:border-rose-400 transition-all flex flex-col items-center gap-2 shadow-sm active:scale-95">
           <div class="w-12 h-12 rounded-full bg-rose-500 text-white flex items-center justify-center text-xl group-hover:scale-110 shadow-md">
-            <i class="fa-solid fa-xmark"></i>
+            <span class="ic" aria-hidden="true">✕</span>
           </div>
           <span class="font-extrabold text-sm sm:text-base text-[#5B1F2A]">MITOS</span>
         </button>
         <button onclick="answerProductivity(true)" class="group p-4 sm:p-5 rounded-2xl bg-[#FFF7F8] hover:bg-emerald-100/60 border-2 border-[#FBCFD6] hover:border-emerald-400 transition-all flex flex-col items-center gap-2 shadow-sm active:scale-95">
           <div class="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xl group-hover:scale-110 shadow-md">
-            <i class="fa-solid fa-check"></i>
+            <span class="ic" aria-hidden="true">✓</span>
           </div>
           <span class="font-extrabold text-sm sm:text-base text-[#5B1F2A]">FAKTA</span>
         </button>
@@ -396,7 +396,7 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
         <p id="prod-feedback-desc" class="text-xs sm:text-sm text-[#6B2A37] leading-relaxed pt-1">---</p>
         <div class="pt-2 text-right">
           <button id="prod-next-btn" onclick="nextProductivity()" class="px-5 py-2.5 bg-gradient-to-r from-[#E88B97] to-[#D97683] text-white rounded-xl text-xs sm:text-sm font-bold shadow-md active:scale-95">
-            Lanjut Soal <i class="fa-solid fa-arrow-right ml-1"></i>
+            Lanjut Soal <span class="ic ml-1" aria-hidden="true">→</span>
           </button>
         </div>
       </div>
@@ -404,13 +404,13 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
       <!-- Kotak hasil akhir (dipisah agar kotak umpan balik tidak rusak) -->
       <div id="prod-result-box" class="hidden rounded-2xl p-6 border bg-white border-[#FBCFD6] text-center space-y-4 shadow-xl">
         <div class="w-14 h-14 rounded-full bg-[#E88B97] text-white flex items-center justify-center text-2xl mx-auto shadow-md">
-          <i class="fa-solid fa-trophy"></i>
+          <span class="ic" aria-hidden="true">🏆</span>
         </div>
         <h3 class="font-serif text-2xl font-extrabold text-[#5B1F2A]">Kuis Selesai!</h3>
         <p class="text-[#7A2838] text-xs sm:text-sm font-semibold">Skor Akhir: <span id="prod-final-score" class="font-extrabold text-[#B24556] text-base px-2.5 py-1 bg-[#FFF5F6] rounded-md border border-[#FBCFD6]">0 dari 0</span></p>
         <div class="pt-2 flex flex-col sm:flex-row justify-center gap-2">
           <button onclick="restartProdQuiz()" class="px-5 py-2.5 bg-gradient-to-r from-[#E88B97] to-[#D97683] text-white rounded-xl text-xs sm:text-sm font-bold shadow-md active:scale-95">
-            <i class="fa-solid fa-rotate-right mr-1"></i> Ulangi
+            <span class="ic mr-1" aria-hidden="true">🔄</span> Ulangi
           </button>
           <button onclick="backToProdTheme()" class="px-5 py-2.5 bg-[#FFF5F6] text-[#A35261] rounded-xl text-xs sm:text-sm font-bold border border-[#FBCFD6] active:scale-95">
             Pilih Topik Lain
@@ -425,8 +425,8 @@ main { padding-left: max(0.75rem, env(safe-area-inset-left)); padding-right: max
 <div id="timer-modal" role="dialog" aria-modal="true" aria-label="Atur waktu jam pasir" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden items-center justify-center p-4" onclick="if (event.target === this) closeTimerModal()">
   <div class="bg-white rounded-3xl border-2 border-[#FBCFD6] p-5 sm:p-6 max-w-xs w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-4 animate-pop-in">
     <div class="flex justify-between items-center">
-      <h3 class="font-serif font-bold text-base sm:text-lg text-[#5B1F2A]"><i class="fa-solid fa-hourglass-half text-[#E88B97] mr-1.5"></i> Atur Waktu Jam Pasir</h3>
-      <button onclick="closeTimerModal()" aria-label="Tutup" class="text-gray-400 hover:text-gray-600 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 class="font-serif font-bold text-base sm:text-lg text-[#5B1F2A]"><span class="ic text-[#E88B97] mr-1.5" aria-hidden="true">⏳</span> Atur Waktu Jam Pasir</h3>
+      <button onclick="closeTimerModal()" aria-label="Tutup" class="text-gray-400 hover:text-gray-600 p-1"><span class="ic text-lg" aria-hidden="true">✕</span></button>
     </div>
     <div class="space-y-3">
       <p class="text-xs text-[#8C3A49]">Pilih durasi instan:</p>
@@ -562,7 +562,7 @@ function startCountdown() {
 function updateTimerDisplay() {
   const m = Math.floor(timerSecondsLeft / 60);
   const s = timerSecondsLeft % 60;
-  const timeStr = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  const timeStr = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
   $('timer-display-tebak').textContent = timeStr;
   $('timer-display-prod').textContent = timeStr;
 }
@@ -610,7 +610,7 @@ function renderTebakLevelSelector() {
     const isDone = completedTebakLevels.has(idx);
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.setAttribute('aria-label', `Level ${idx + 1}`);
+    btn.setAttribute('aria-label', 'Level ' + (idx + 1));
     btn.onclick = () => { goToTebakLevel(idx); };
 
     let btnStyle = "px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all border flex items-center gap-1 shadow-sm ";
@@ -622,7 +622,7 @@ function renderTebakLevelSelector() {
       btnStyle += "bg-white text-[#5B1F2A] border-[#FBCFD6] hover:bg-[#FFF5F6]";
     }
     btn.className = btnStyle;
-    btn.innerHTML = `${isDone ? '<i class="fa-solid fa-check text-[10px]"></i>' : ''} ${idx + 1}`;
+    btn.innerHTML = (isDone ? '<span class="ic text-[10px]" aria-hidden="true">✓</span>' : '') + ' ' + (idx + 1);
     bar.appendChild(btn);
     if (isCurrent) currentBtn = btn;
   });
@@ -637,9 +637,9 @@ function generateRebusVisualHTML(equationArray) {
   let html = '';
   equationArray.forEach(item => {
     if (item === '+' || item === '-') {
-      html += `<div class="text-2xl sm:text-4xl font-black text-[#E88B97] drop-shadow-sm px-0.5 sm:px-1">${item}</div>`;
+      html += '<div class="text-2xl sm:text-4xl font-black text-[#E88B97] drop-shadow-sm px-0.5 sm:px-1">' + item + '</div>';
     } else {
-      html += `<div class="bg-white w-[64px] h-[64px] sm:w-[88px] sm:h-[88px] rounded-2xl sm:rounded-3xl shadow-md border border-[#FBCFD6] flex items-center justify-center text-3xl sm:text-5xl animate-pop-in"><span class="emoji-pic">${item}</span></div>`;
+      html += '<div class="bg-white w-[64px] h-[64px] sm:w-[88px] sm:h-[88px] rounded-2xl sm:rounded-3xl shadow-md border border-[#FBCFD6] flex items-center justify-center text-3xl sm:text-5xl animate-pop-in"><span class="emoji-pic">' + item + '</span></div>';
     }
   });
   return html;
@@ -653,7 +653,7 @@ function goToTebakLevel(idx) {
 
 function updateTebakUI() {
   const data = tebakData[currentTebakIndex];
-  $('tebak-level-title').textContent = `Level ${currentTebakIndex + 1}`;
+  $('tebak-level-title').textContent = 'Level ' + (currentTebakIndex + 1);
   $('tebak-current-num').textContent = currentTebakIndex + 1;
 
   const diffBadge = $('tebak-difficulty-badge');
@@ -689,13 +689,13 @@ function checkTebakAnswer() {
 
   if (input === '') {
     msgBox.className = "p-3 rounded-2xl text-center text-xs sm:text-sm font-extrabold bg-amber-50 border border-amber-200 text-amber-900 animate-pop-in";
-    msgBox.innerHTML = `<i class="fa-solid fa-pen text-base mr-1"></i> Ketik jawabanmu dulu ya!`;
+    msgBox.innerHTML = '<span class="ic text-base mr-1" aria-hidden="true">✏️</span> Ketik jawabanmu dulu ya!';
     return;
   }
 
   if (input === target) {
     msgBox.className = "p-3 rounded-2xl text-center text-xs sm:text-sm font-extrabold bg-emerald-100 border border-emerald-300 text-emerald-800 animate-pop-in";
-    msgBox.innerHTML = `<i class="fa-solid fa-circle-check text-base mr-1"></i> BENAR SEKALI! 🎉`;
+    msgBox.innerHTML = '<span class="ic text-base mr-1" aria-hidden="true">✅</span> BENAR SEKALI! 🎉';
     if (!completedTebakLevels.has(currentTebakIndex)) {
       completedTebakLevels.add(currentTebakIndex);
       tebakScore += 100;
@@ -713,7 +713,7 @@ function checkTebakAnswer() {
     }, 1500);
   } else {
     msgBox.className = "p-3 rounded-2xl text-center text-xs sm:text-sm font-extrabold bg-rose-100 border border-rose-300 text-rose-800 animate-pop-in";
-    msgBox.innerHTML = `<i class="fa-solid fa-circle-xmark text-base mr-1"></i> Jawaban belum pas. Coba cek lagi gambarnya!`;
+    msgBox.innerHTML = '<span class="ic text-base mr-1" aria-hidden="true">❌</span> Jawaban belum pas. Coba cek lagi gambarnya!';
   }
 }
 
@@ -729,7 +729,7 @@ function showTebakHint() {
   const msgBox = $('tebak-feedback-msg');
   msgBox.classList.remove('hidden');
   msgBox.className = "p-3 rounded-2xl text-center text-xs sm:text-sm font-bold bg-amber-50 border border-amber-200 text-amber-900 animate-pop-in";
-  msgBox.innerHTML = `<i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> <b>Petunjuk:</b> ${data.hint}`;
+  msgBox.innerHTML = '<span class="ic text-amber-500 mr-1" aria-hidden="true">💡</span> <b>Petunjuk:</b> ' + data.hint;
 }
 
 function showTebakAnswer() {
@@ -737,7 +737,7 @@ function showTebakAnswer() {
   const msgBox = $('tebak-feedback-msg');
   msgBox.classList.remove('hidden');
   msgBox.className = "p-3 rounded-2xl text-center text-xs sm:text-sm font-bold bg-[#FDE8EB] border border-[#FBCFD6] text-[#5B1F2A] animate-pop-in";
-  msgBox.innerHTML = `<i class="fa-solid fa-key text-amber-500 mr-1"></i> <b>Kunci:</b> ${data.answer}`;
+  msgBox.innerHTML = '<span class="ic text-amber-500 mr-1" aria-hidden="true">🔑</span> <b>Kunci:</b> ' + data.answer;
 }
 
 function setTebakMode(mode) {
@@ -831,9 +831,9 @@ function restartProdQuiz() {
 function updateProductivityUI() {
   answeredProd = false;
   const data = currentActiveQuizData[currentProdIndex];
-  $('prod-number-badge').textContent = `Soal ${currentProdIndex + 1} dari ${currentActiveQuizData.length}`;
-  $('prod-category-badge').textContent = `Topik: ${data.category}`;
-  $('prod-statement-text').textContent = `“${data.statement}”`;
+  $('prod-number-badge').textContent = 'Soal ' + (currentProdIndex + 1) + ' dari ' + currentActiveQuizData.length;
+  $('prod-category-badge').textContent = 'Topik: ' + data.category;
+  $('prod-statement-text').textContent = '\u201C' + data.statement + '\u201D';
   $('prod-options-grid').classList.remove('hidden');
   $('prod-feedback-box').classList.add('hidden');
   $('prod-result-box').classList.add('hidden');
@@ -856,22 +856,22 @@ function answerProductivity(userAnswer) {
   if (isCorrect) {
     feedbackBox.className = "rounded-2xl p-4 sm:p-5 border bg-emerald-50 border-emerald-200 text-emerald-900 space-y-2 shadow-lg animate-pop-in";
     feedbackIcon.className = "w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm bg-emerald-500 shadow-md shrink-0";
-    feedbackIcon.innerHTML = `<i class="fa-solid fa-check"></i>`;
+    feedbackIcon.innerHTML = '<span class="ic" aria-hidden="true">✓</span>';
     feedbackTitle.textContent = "Tebakan Anda Benar! 🎉";
     playChimeSound();
   } else {
     feedbackBox.className = "rounded-2xl p-4 sm:p-5 border bg-rose-50 border-rose-200 text-rose-900 space-y-2 shadow-lg animate-pop-in";
     feedbackIcon.className = "w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm bg-rose-500 shadow-md shrink-0";
-    feedbackIcon.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+    feedbackIcon.innerHTML = '<span class="ic" aria-hidden="true">✕</span>';
     feedbackTitle.textContent = "Tebakan Kurang Tepat!";
   }
-  feedbackDesc.textContent = `${data.title} ${data.explanation}`;
+  feedbackDesc.textContent = data.title + ' ' + data.explanation;
 
   // Ubah teks tombol di soal terakhir, lalu bawa tombol ke layar (penting di HP)
   const isLast = currentProdIndex >= currentActiveQuizData.length - 1;
   $('prod-next-btn').innerHTML = isLast
-    ? `Lihat Hasil <i class="fa-solid fa-trophy ml-1"></i>`
-    : `Lanjut Soal <i class="fa-solid fa-arrow-right ml-1"></i>`;
+    ? 'Lihat Hasil <span class="ic ml-1" aria-hidden="true">🏆</span>'
+    : 'Lanjut Soal <span class="ic ml-1" aria-hidden="true">→</span>';
   feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
@@ -887,7 +887,7 @@ function nextProductivity() {
 function showProductivityResult() {
   $('prod-options-grid').classList.add('hidden');
   $('prod-feedback-box').classList.add('hidden');
-  $('prod-final-score').textContent = `${prodScore} dari ${currentActiveQuizData.length}`;
+  $('prod-final-score').textContent = prodScore + ' dari ' + currentActiveQuizData.length;
   $('prod-result-box').classList.remove('hidden');
   $('prod-result-box').classList.add('animate-pop-in');
   playChimeSound();
@@ -912,18 +912,14 @@ function switchGame(gameId) {
   const activeNav = baseNav + "font-bold bg-[#E88B97] text-white shadow-sm";
   btnTebak.className = idleNav;
   btnProd.className = idleNav;
-  btnTebak.querySelector('i').className = "fa-solid fa-images text-[#E88B97]";
-  btnProd.querySelector('i').className = "fa-solid fa-brain text-[#E88B97]";
 
   if (gameId === 'tebak') {
     $('game-tebak').classList.remove('hidden');
     btnTebak.className = activeNav;
-    btnTebak.querySelector('i').className = "fa-solid fa-images text-white";
     updateTebakUI();
   } else if (gameId === 'productivity') {
     $('game-productivity').classList.remove('hidden');
     btnProd.className = activeNav;
-    btnProd.querySelector('i').className = "fa-solid fa-brain text-white";
     backToProdTheme();
   } else {
     $('game-home').classList.remove('hidden');
@@ -947,4 +943,4 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 </body>
-</html>
+  </html>
