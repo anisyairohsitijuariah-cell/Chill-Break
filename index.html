@@ -106,70 +106,73 @@ user-select: none;
 </div>
 ​<nav class="flex items-center gap-1.5 sm:gap-2 bg-[#FFF5F6] p-1.5 rounded-full border border-[#F6A7B8]/40 shadow-inner">
 <button id="nav-btn-tebak" onclick="switchGame('tebak')" class="px-3 py-1.5 sm:px-5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5">
-<i class="fa-solid fa-images text-[#E88B97]"></i> <span class="sm:inline">Tebak Gambar</span>
+<i class="fa-solid fa-images text-[#E88B97]"></i> <span>Tebak Gambar</span>
 </button>
 <button id="nav-btn-productivity" onclick="switchGame('productivity')" class="px-3 py-1.5 sm:px-5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center gap-1.5">
-<i class="fa-solid fa-brain text-[#E88B97]"></i> <span class="sm:inline">Mitos vs Fakta</span>
+<i class="fa-solid fa-brain text-[#E88B97]"></i> <span>Mitos vs Fakta</span>
 </button>
 </nav>
 </div>
 </header>
 ​<!-- Main Content Container -->
-<main class="max-w-5xl mx-auto px-4 py-4 sm:py-8 flex-grow w-full flex flex-col justify-start sm:justify-center">
+<main class="max-w-5xl mx-auto px-3 sm:px-4 py-4 sm:py-8 flex-grow w-full flex flex-col justify-start sm:justify-center">
 ​<!-- ==================== LANDING PAGE ==================== -->
-<section id="game-home" class="text-center py-4 space-y-6 sm:space-y-10 animate-pop-in my-auto">
-<div class="max-w-2xl mx-auto space-y-3 sm:space-y-4">
-<span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-[#B24556] text-xs font-bold tracking-wide shadow-md border border-[#FBCFD6]">
+<section id="game-home" class="text-center py-2 space-y-5 sm:space-y-10 animate-pop-in my-auto">
+<div class="max-w-2xl mx-auto space-y-2 sm:space-y-4">
+<span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white text-[#B24556] text-xs font-bold tracking-wide shadow-md border border-[#FBCFD6]">
 <i class="fa-solid fa-sparkles text-amber-400"></i> Main Bareng & Santai
 </span>
-<h2 class="font-serif text-3xl sm:text-5xl font-extrabold text-[#5B1F2A] tracking-tight leading-snug">
+<h2 class="font-serif text-2xl sm:text-5xl font-extrabold text-[#5B1F2A] tracking-tight leading-snug">
 Cairkan Suasana dengan 
 <span class="italic text-[#B24556]">Tebak Gambar & Wawasan</span>
 </h2>
-<p class="text-[#7A2838] font-medium text-sm sm:text-base max-w-lg mx-auto">
+<p class="text-[#7A2838] font-medium text-xs sm:text-base max-w-lg mx-auto">
 Pilih permainan di bawah ini untuk mengasah logika imajinasi dan pengetahuan seputar produktivitas!
 </p>
 </div>
-​<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
+​<!-- GRID DUA KOLOM DI SEMUA LAYAR (TERMASUK HP) -->
+<div class="grid grid-cols-2 gap-3 sm:gap-6 max-w-4xl mx-auto">
 <!-- Card Game 1 -->
-<div onclick="switchGame('tebak')" class="group bg-white hover:bg-[#FFF5F6] border-2 border-[#F6A7B8]/60 hover:border-[#E88B97] p-6 sm:p-8 rounded-3xl cursor-pointer transition-all duration-300 text-left flex flex-col justify-between shadow-xl shadow-rose-100/50 hover:-translate-y-1">
-<div class="space-y-4">
-<div class="w-14 h-14 rounded-2xl bg-[#FDE8EB] border border-[#FBCFD6] flex items-center justify-center text-[#E88B97] text-2xl group-hover:scale-110 transition-all">
+<div onclick="switchGame('tebak')" class="group bg-white hover:bg-[#FFF5F6] border-2 border-[#F6A7B8]/60 hover:border-[#E88B97] p-3.5 sm:p-8 rounded-3xl cursor-pointer transition-all duration-300 text-left flex flex-col justify-between shadow-xl shadow-rose-100/50 hover:-translate-y-1">
+<div class="space-y-2 sm:space-y-4">
+<div class="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-[#FDE8EB] border border-[#FBCFD6] flex items-center justify-center text-[#E88B97] text-lg sm:text-2xl group-hover:scale-110 transition-all">
 <i class="fa-solid fa-images"></i>
 </div>
 <div>
-<span class="text-[10px] font-bold uppercase tracking-wider text-[#B24556] bg-[#FDE8EB] px-2.5 py-1 rounded-md border border-[#FBCFD6]">20 Level Logika</span>
-<h3 class="font-serif text-2xl font-bold text-[#5B1F2A] group-hover:text-[#B24556] transition-colors mt-2">Tebak Gambar Rebus</h3>
+<span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#B24556] bg-[#FDE8EB] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md border border-[#FBCFD6]">20 Level Logika</span>
+<h3 class="font-serif text-sm sm:text-2xl font-bold text-[#5B1F2A] group-hover:text-[#B24556] transition-colors mt-1.5 sm:mt-2">Tebak Gambar Rebus</h3>
 </div>
-<p class="text-[#8C3A49] text-xs sm:text-sm leading-relaxed">
+<p class="text-[#8C3A49] text-[11px] sm:text-sm leading-relaxed hidden sm:block">
 Gabungkan petunjuk visual (rebus) untuk menebak <b>1 hingga 3 kata</b> dari level <b>Mudah</b> hingga <b>Sangat Sulit</b>!
 </p>
 </div>
-<div class="mt-6 flex items-center justify-between pt-4 border-t border-[#FDE8EB] text-[#E88B97] font-bold text-sm">
-<span>Mulai Bermain</span>
-<div class="w-8 h-8 rounded-full bg-[#FDE8EB] flex items-center justify-center group-hover:translate-x-1.5 transition-transform">
-<i class="fa-solid fa-arrow-right"></i>
+<div class="mt-3 sm:mt-6 flex items-center justify-between pt-2.5 sm:pt-4 border-t border-[#FDE8EB] text-[#E88B97] font-bold text-xs sm:text-sm">
+<span class="hidden sm:inline">Mulai Bermain</span>
+<span class="sm:hidden">Main</span>
+<div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#FDE8EB] flex items-center justify-center group-hover:translate-x-1.5 transition-transform">
+<i class="fa-solid fa-arrow-right text-xs"></i>
 </div>
 </div>
 </div>
 ​<!-- Card Game 2 -->
-<div onclick="switchGame('productivity')" class="group bg-white hover:bg-[#FFF5F6] border-2 border-[#F6A7B8]/60 hover:border-[#E88B97] p-6 sm:p-8 rounded-3xl cursor-pointer transition-all duration-300 text-left flex flex-col justify-between shadow-xl shadow-rose-100/50 hover:-translate-y-1">
-<div class="space-y-4">
-<div class="w-14 h-14 rounded-2xl bg-[#FDE8EB] border border-[#FBCFD6] flex items-center justify-center text-[#E88B97] text-2xl group-hover:scale-110 transition-all">
+<div onclick="switchGame('productivity')" class="group bg-white hover:bg-[#FFF5F6] border-2 border-[#F6A7B8]/60 hover:border-[#E88B97] p-3.5 sm:p-8 rounded-3xl cursor-pointer transition-all duration-300 text-left flex flex-col justify-between shadow-xl shadow-rose-100/50 hover:-translate-y-1">
+<div class="space-y-2 sm:space-y-4">
+<div class="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-[#FDE8EB] border border-[#FBCFD6] flex items-center justify-center text-[#E88B97] text-lg sm:text-2xl group-hover:scale-110 transition-all">
 <i class="fa-solid fa-bolt"></i>
 </div>
 <div>
-<span class="text-[10px] font-bold uppercase tracking-wider text-[#B24556] bg-[#FDE8EB] px-2.5 py-1 rounded-md border border-[#FBCFD6]">Wawasan & Self-Care</span>
-<h3 class="font-serif text-2xl font-bold text-[#5B1F2A] group-hover:text-[#B24556] transition-colors mt-2">Mitos vs Fakta</h3>
+<span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#B24556] bg-[#FDE8EB] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md border border-[#FBCFD6]">Wawasan & Self-Care</span>
+<h3 class="font-serif text-sm sm:text-2xl font-bold text-[#5B1F2A] group-hover:text-[#B24556] transition-colors mt-1.5 sm:mt-2">Mitos vs Fakta</h3>
 </div>
-<p class="text-[#8C3A49] text-xs sm:text-sm leading-relaxed">
+<p class="text-[#8C3A49] text-[11px] sm:text-sm leading-relaxed hidden sm:block">
 Pilih tema menarik: <b>Produktivitas</b>, <b>Manajemen Waktu</b>, atau <b>Manajemen Energi</b> untuk menguji pengetahuanmu!
 </p>
 </div>
-<div class="mt-6 flex items-center justify-between pt-4 border-t border-[#FDE8EB] text-[#E88B97] font-bold text-sm">
-<span>Pilih Tema Kuis</span>
-<div class="w-8 h-8 rounded-full bg-[#FDE8EB] flex items-center justify-center group-hover:translate-x-1.5 transition-transform">
-<i class="fa-solid fa-arrow-right"></i>
+<div class="mt-3 sm:mt-6 flex items-center justify-between pt-2.5 sm:pt-4 border-t border-[#FDE8EB] text-[#E88B97] font-bold text-xs sm:text-sm">
+<span class="hidden sm:inline">Pilih Tema Kuis</span>
+<span class="sm:hidden">Kuis</span>
+<div class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#FDE8EB] flex items-center justify-center group-hover:translate-x-1.5 transition-transform">
+<i class="fa-solid fa-arrow-right text-xs"></i>
 </div>
 </div>
 </div>
@@ -177,7 +180,6 @@ Pilih tema menarik: <b>Produktivitas</b>, <b>Manajemen Waktu</b>, atau <b>Manaje
 </section>
 ​<!-- ==================== GAME 1: TEBAK GAMBAR REBUS ==================== -->
 <section id="game-tebak" class="hidden space-y-4 animate-pop-in w-full max-w-3xl mx-auto">
-<!-- Top Control Bar -->
 <div class="flex flex-col sm:flex-row justify-between items-center gap-3 bg-white p-4 rounded-3xl border border-[#F6A7B8]/60 shadow-md">
 <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
 <div class="flex items-center gap-3">
@@ -194,11 +196,10 @@ Pilih tema menarik: <b>Produktivitas</b>, <b>Manajemen Waktu</b>, atau <b>Manaje
 </button>
 </div>
 ​<div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-[#FDE8EB]">
-<!-- TIMER JAM PASIR WIDGET -->
 <div class="flex items-center gap-2 bg-[#FDE8EB] px-3.5 py-1.5 rounded-2xl border border-[#E88B97] shadow-sm">
 <span class="text-[#E88B97] text-sm animate-bounce-soft"><i class="fa-solid fa-hourglass-half"></i></span>
 <span id="timer-display-tebak" class="font-mono text-xs sm:text-sm font-bold text-[#5B1F2A]">01:00</span>
-<button onclick="openTimerModal()" class="text-[10px] bg-[#E88B97] text-white px-2 py-0.5 rounded-lg ml-1 hover:bg-[#D97683] transition-colors">Atur</button>
+<button onclick="openTimerModal()" class="text-[10px] bg-[#E88B97] text-white px-2 py-0.5 rounded-lg ml-1 hover:bg-[#D97683]">Atur</button>
 </div>
 ​<div class="bg-[#FFF5F6] p-1 rounded-2xl border border-[#FBCFD6] flex gap-1 text-xs">
 <button id="mode-btn-ketik" onclick="setTebakMode('ketik')" class="px-3.5 py-1.5 rounded-xl font-bold transition-all bg-[#E88B97] text-white shadow-sm">Ketik</button>
@@ -209,12 +210,10 @@ Pilih tema menarik: <b>Produktivitas</b>, <b>Manajemen Waktu</b>, atau <b>Manaje
 </button>
 </div>
 </div>
-​<!-- Level Selector Bar -->
-<div id="level-selector-bar" class="flex gap-2 overflow-x-auto py-1 scrollbar-none max-w-full"></div>
-​<!-- CANVAS TEBAKAN -->
-<div class="w-full">
+​<div id="level-selector-bar" class="flex gap-2 overflow-x-auto py-1 scrollbar-none max-w-full"></div>
+​<div class="w-full">
 <!-- MODE KETIK -->
-<div id="tebak-mode-ketik-container" class="bg-white rounded-3xl border-2 border-[#F6A7B8]/80 p-5 sm:p-7 shadow-2xl shadow-rose-200/50 space-y-5 relative">
+<div id="tebak-mode-ketik-container" class="bg-white rounded-3xl border-2 border-[#F6A7B8]/80 p-5 sm:p-7 shadow-2xl space-y-5 relative">
 ​<div class="flex justify-between items-center text-xs sm:text-sm">
 <div class="flex gap-2 items-center flex-wrap">
 <span class="bg-[#FDE8EB] text-[#B24556] font-extrabold px-3 py-1 rounded-full border border-[#FBCFD6]">
@@ -226,34 +225,31 @@ Pilih tema menarik: <b>Produktivitas</b>, <b>Manajemen Waktu</b>, atau <b>Manaje
 Skor: <span id="tebak-score-val">0</span>
 </span>
 </div>
-​<!-- Tempat Rebus Gambar -->
-<div class="w-full min-h-[220px] sm:min-h-[280px] rounded-3xl bg-gradient-to-br from-[#FFF5F6] to-[#FDE8EB] border-2 border-[#FBCFD6] p-4 sm:p-6 shadow-inner flex flex-col justify-center items-center">
+​<div class="w-full min-h-[220px] sm:min-h-[280px] rounded-3xl bg-gradient-to-br from-[#FFF5F6] to-[#FDE8EB] border-2 border-[#FBCFD6] p-4 sm:p-6 shadow-inner flex flex-col justify-center items-center">
 <div id="tebak-rebus-visual" class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 transition-all duration-300"></div>
 </div>
-​<!-- Input Jawaban -->
-<div class="space-y-3">
+​<div class="space-y-3">
 <div class="flex gap-2">
-<input type="text" id="tebak-user-input" placeholder="Ketik 1-3 kata jawabanmu..." onkeypress="handleTebakKeyPress(event)" class="w-full px-4 py-3 sm:py-4 rounded-2xl bg-[#FFF7F8] border-2 border-[#FBCFD6] text-[#5B1F2A] font-bold text-center text-sm sm:text-lg focus:outline-none focus:border-[#E88B97] focus:ring-2 focus:ring-[#FBCFD6] placeholder-[#C48894] shadow-inner transition-all uppercase tracking-wide">
-​<button onclick="checkTebakAnswer()" class="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#E88B97] to-[#D97683] hover:from-[#D97683] text-white font-extrabold rounded-2xl shadow-md shadow-rose-200 active:scale-95 transition-all shrink-0 text-sm sm:text-base">
+<input type="text" id="tebak-user-input" placeholder="Ketik 1-3 kata jawabanmu..." onkeypress="handleTebakKeyPress(event)" class="w-full px-4 py-3 sm:py-4 rounded-2xl bg-[#FFF7F8] border-2 border-[#FBCFD6] text-[#5B1F2A] font-bold text-center text-sm sm:text-lg focus:outline-none focus:border-[#E88B97] placeholder-[#C48894] shadow-inner uppercase tracking-wide">
+​<button onclick="checkTebakAnswer()" class="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#E88B97] to-[#D97683] text-white font-extrabold rounded-2xl shadow-md active:scale-95 shrink-0 text-sm sm:text-base">
 Cek <i class="fa-solid fa-paper-plane text-xs ml-1"></i>
 </button>
 </div>
 <div id="tebak-feedback-msg" class="hidden p-3 rounded-2xl text-center text-xs sm:text-sm font-bold transition-all"></div>
 </div>
 ​<div class="flex justify-between items-center pt-3 border-t border-[#FDE8EB]">
-<button onclick="showTebakHint()" class="text-xs sm:text-sm font-bold text-[#A35261] bg-[#FFF5F6] hover:bg-[#FDE8EB] px-4 py-2.5 rounded-xl border border-[#FBCFD6] transition-colors">
+<button onclick="showTebakHint()" class="text-xs sm:text-sm font-bold text-[#A35261] bg-[#FFF5F6] px-4 py-2.5 rounded-xl border border-[#FBCFD6]">
 <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Bantuan
 </button>
-<button onclick="showTebakAnswer()" class="text-xs sm:text-sm font-bold text-[#A35261] bg-gray-50 hover:bg-gray-100 px-4 py-2.5 rounded-xl border border-gray-200 transition-colors">
+<button onclick="showTebakAnswer()" class="text-xs sm:text-sm font-bold text-[#A35261] bg-gray-50 px-4 py-2.5 rounded-xl border border-gray-200">
 <i class="fa-solid fa-key text-amber-500 mr-1"></i> Kunci
 </button>
 </div>
-​</div>
+</div>
 ​<!-- MODE FLASHCARD -->
 <div id="tebak-mode-flash-container" class="hidden perspective-1000 w-full min-h-[440px] sm:min-h-[500px] group cursor-pointer" onclick="flipTebakCard()">
 <div id="tebak-card-inner" class="relative w-full h-full min-h-[440px] sm:min-h-[500px] duration-700 transform-style-3d rounded-3xl border-2 border-[#F6A7B8] shadow-2xl bg-white">
-​<!-- Front Card -->
-<div class="absolute w-full h-full backface-hidden bg-white p-6 sm:p-8 rounded-3xl flex flex-col justify-between items-center text-center">
+​<div class="absolute w-full h-full backface-hidden bg-white p-6 sm:p-8 rounded-3xl flex flex-col justify-between items-center text-center">
 <div class="w-full flex justify-between items-center text-xs sm:text-sm">
 <span id="tebak-flash-difficulty" class="bg-[#FDE8EB] text-[#B24556] px-3 py-1 rounded-full border border-[#FBCFD6] font-bold">Mudah</span>
 <span class="text-[#A35261] font-medium"><i class="fa-solid fa-hand-pointer text-[#E88B97] animate-pulse"></i> Ketuk untuk Balik</span>
@@ -268,14 +264,13 @@ Cek <i class="fa-solid fa-paper-plane text-xs ml-1"></i>
 Ketuk kartu untuk melihat kunci jawaban
 </div>
 </div>
-​<!-- Back Card -->
-<div class="absolute w-full h-full backface-hidden rotate-y-180 bg-gradient-to-b from-[#FFF5F6] via-white to-[#FDE8EB] p-6 sm:p-8 rounded-3xl flex flex-col justify-between items-center text-center border-2 border-[#E88B97]">
+​<div class="absolute w-full h-full backface-hidden rotate-y-180 bg-gradient-to-b from-[#FFF5F6] via-white to-[#FDE8EB] p-6 sm:p-8 rounded-3xl flex flex-col justify-between items-center text-center border-2 border-[#E88B97]">
 <div class="w-full flex justify-between items-center text-xs sm:text-sm">
 <span class="bg-emerald-500 text-white px-3 py-1 rounded-full font-bold shadow-sm">KUNCI JAWABAN</span>
-<span class="text-[#B24556] font-bold">Kartu Terbuka</span>
+<span class="text-[#B24556] font-bold">Terbuka</span>
 </div>
-​<div class="my-auto space-y-4 sm:space-y-5 w-full">
-<div class="w-16 h-16 bg-[#E88B97] rounded-full flex items-center justify-center mx-auto text-white text-3xl shadow-lg shadow-rose-200">
+​<div class="my-auto space-y-4 w-full">
+<div class="w-16 h-16 bg-[#E88B97] rounded-full flex items-center justify-center mx-auto text-white text-3xl shadow-lg">
 <i class="fa-solid fa-key"></i>
 </div>
 <div class="space-y-2">
@@ -285,28 +280,27 @@ Ketuk kartu untuk melihat kunci jawaban
 <p id="tebak-flash-hint" class="text-xs sm:text-sm text-[#7A2838] leading-relaxed bg-white/80 p-3.5 rounded-2xl border border-[#FBCFD6] italic max-w-md mx-auto">---</p>
 </div>
 ​<div class="text-xs text-[#A35261] font-medium bg-[#FDE8EB] px-4 py-1.5 rounded-full border border-[#FBCFD6]">
-Ketuk lagi untuk kembali ke soal
+Ketuk lagi untuk kembali
 </div>
 </div>
 ​</div>
 </div>
 </div>
-​<!-- Bottom Navigation -->
-<div class="flex justify-between items-center pt-2 px-1">
-<button onclick="prevTebakLevel()" class="px-5 py-2.5 rounded-2xl bg-white border border-[#FBCFD6] text-xs sm:text-sm font-bold text-[#5B1F2A] shadow-sm hover:bg-[#FFF5F6] flex items-center gap-2">
+​<div class="flex justify-between items-center pt-2 px-1">
+<button onclick="prevTebakLevel()" class="px-5 py-2.5 rounded-2xl bg-white border border-[#FBCFD6] text-xs sm:text-sm font-bold text-[#5B1F2A] shadow-sm flex items-center gap-2">
 <i class="fa-solid fa-arrow-left text-[#E88B97]"></i> Mundur
 </button>
-<button onclick="randomizeTebakLevel()" class="px-4 py-2.5 rounded-2xl bg-white border border-[#FBCFD6] text-[#B24556] text-xs sm:text-sm font-bold shadow-sm hover:bg-[#FFF5F6]" title="Acak Level">
+<button onclick="randomizeTebakLevel()" class="px-4 py-2.5 rounded-2xl bg-white border border-[#FBCFD6] text-[#B24556] text-xs sm:text-sm font-bold shadow-sm" title="Acak Level">
 <i class="fa-solid fa-dice text-base"></i> Acak
 </button>
-<button onclick="nextTebakLevel()" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#E88B97] to-[#D97683] text-white text-xs sm:text-sm font-bold shadow-md shadow-rose-200 flex items-center gap-2">
+<button onclick="nextTebakLevel()" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#E88B97] to-[#D97683] text-white text-xs sm:text-sm font-bold shadow-md flex items-center gap-2">
 Lanjut <i class="fa-solid fa-arrow-right"></i>
 </button>
 </div>
 </section>
 ​<!-- ==================== GAME 2: MITOS VS FAKTA ==================== -->
 <section id="game-productivity" class="hidden space-y-6 animate-pop-in w-full max-w-3xl mx-auto">
-​<div class="flex flex-col sm:flex-row justify-between items-center gap-3 bg-white p-4 rounded-3xl border border-[#F6A7B8]/60 shadow-md">
+<div class="flex flex-col sm:flex-row justify-between items-center gap-3 bg-white p-4 rounded-3xl border border-[#F6A7B8]/60 shadow-md">
 <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
 <div class="flex items-center gap-3">
 <div class="w-10 h-10 rounded-2xl bg-[#FDE8EB] flex items-center justify-center text-[#E88B97] border border-[#FBCFD6] text-xl">
@@ -322,19 +316,17 @@ Lanjut <i class="fa-solid fa-arrow-right"></i>
 </button>
 </div>
 ​<div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-[#FDE8EB]">
-<!-- TIMER JAM PASIR WIDGET -->
 <div class="flex items-center gap-2 bg-[#FDE8EB] px-3.5 py-1.5 rounded-2xl border border-[#E88B97] shadow-sm">
 <span class="text-[#E88B97] text-sm animate-bounce-soft"><i class="fa-solid fa-hourglass-half"></i></span>
 <span id="timer-display-prod" class="font-mono text-xs sm:text-sm font-bold text-[#5B1F2A]">01:00</span>
-<button onclick="openTimerModal()" class="text-[10px] bg-[#E88B97] text-white px-2 py-0.5 rounded-lg ml-1 hover:bg-[#D97683] transition-colors">Atur</button>
+<button onclick="openTimerModal()" class="text-[10px] bg-[#E88B97] text-white px-2 py-0.5 rounded-lg ml-1 hover:bg-[#D97683]">Atur</button>
 </div>
 ​<button onclick="switchGame('home')" class="hidden sm:block text-xs text-[#A35261] font-bold bg-[#FFF5F6] px-4 py-2 rounded-xl border border-[#FBCFD6]">
 <i class="fa-solid fa-house mr-1"></i> Kembali
 </button>
 </div>
 </div>
-​<!-- LAYAR 1: PILIH TEMA -->
-<div id="prod-theme-screen" class="space-y-6">
+​<div id="prod-theme-screen" class="space-y-6">
 <div class="text-center space-y-2">
 <h3 class="font-serif text-2xl font-bold text-[#5B1F2A]">Pilih Tema Pembahasan</h3>
 <p class="text-sm text-[#8C3A49]">Pilih topik di bawah ini untuk memulai tes wawasan Anda.</p>
@@ -357,8 +349,7 @@ Lanjut <i class="fa-solid fa-arrow-right"></i>
 </div>
 </div>
 </div>
-​<!-- LAYAR 2: KUIS BERJALAN -->
-<div id="prod-quiz-screen" class="hidden bg-white border-2 border-[#F6A7B8]/80 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl shadow-rose-200/50 relative">
+​<div id="prod-quiz-screen" class="hidden bg-white border-2 border-[#F6A7B8]/80 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative">
 <div class="flex justify-between items-center border-b border-[#FDE8EB] pb-3 text-xs sm:text-sm">
 <span id="prod-number-badge" class="font-bold text-[#B24556] bg-[#FDE8EB] px-3 py-1 rounded-full border border-[#FBCFD6]">Soal 1 dari 4</span>
 <span id="prod-category-badge" class="text-[#A35261] font-bold bg-rose-50 px-3 py-1 rounded-md border border-rose-200">Topik: ---</span>
